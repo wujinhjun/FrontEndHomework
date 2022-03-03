@@ -9,3 +9,5 @@ Initially, I thought it is so easy to imitate it. However, I overstimated my abi
 Today is 3.3, my homework only finished a little, maybe by saturday, I can finish a part of this homework.  
 
 Sorry, at the moment, there is only homework with a low degree of completion.  
+
+While doing my homework, I find that it is new to me that various of properties of CSS. So, maybe learn about the basic CSS is more importan for me. Therefore, this homework is not updated for the time being, after a time, I will finish it (before this course end)  
