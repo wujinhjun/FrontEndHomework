@@ -141,7 +141,7 @@ header {
     position: relative;
     margin: 50px auto;
     box-sizing: border-box;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-items: center;
 }
@@ -159,23 +159,7 @@ header {
     margin: 0 auto;
 }
 
-.mainContentCardLeftSide {
-    position: relative;
-    max-width: 36.875rem;
-    height: 23.125rem;
-    display: block;
-    flex: 1 1 100%;
-    -ms-grid-row-align: stretch;
-    align-self: stretch;
-    margin: 1.5625rem;
-    text-decoration: none;
-    background: transparent;
-    border-radius: .5rem;
-    transition: transform .2s ease-out;
-    border-radius: 0.5rem;
-}
-
-.mainContentCardRightSide {
+.mainContentCardSide {
     position: relative;
     max-width: 36.875rem;
     height: 23.125rem;
@@ -205,4 +189,35 @@ header {
     width: auto;
     height: 100%;
     transform: translateX(5%) translateY(-50%);
+}
+
+.cardChoose {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* float: middle; */
+    /* margin: 100 0 100 0px; */
+    width: 100%;
+    margin: 0 auto;
+    max-width: 80.25rem;
+}
+
+.cardLink {
+    /* margin: 1.5625rem; */
+    /* position: relative; */
+    display: flex;
+    flex: 0 1 23.625rem;
+    margin: 1.5625rem auto;
+    text-decoration: none;
+    background-color: aquamarine;
+    width: auto;
+    height: 217px;
+    border-radius: 2px;
+}
+
+.cardLinkBackground {
+    background-color: #eee2f4;
+    width: 100%;
+    height: 100%;
 }
