@@ -20,6 +20,7 @@ const SCORE = {
 // lighting will kill you
 const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
+
 // You have 30second to finish this game
 
 const HEART = 30;
