@@ -1,8 +1,13 @@
+.body {
+    font-family: Arial, "微软雅黑";
+}
+
 .gameMap {
     /* width: 300px;
     height: 300px; */
     padding: -1;
     margin: 0;
+    padding-left: 24px;
 }
 
 .row {
@@ -23,19 +28,29 @@
     justify-content: center;
 }
 
-ul {
-    margin-top: 0px;
-    padding: 10px;
-    list-style: none;
+.info {
+    margin: 10px auto;
+    font-size: 15px;
+    padding-left: 24px;
 }
 
-ul img {
-    height: 16px;
-    width: 16px;
+.info button {
+    position: relative;
+    margin: auto;
 }
 
-ul li {
-    margin: 5px;
+.info .time-text {
+    position: relative;
+    margin: 0 auto;
+}
+
+.info .time {
+    position: relative;
+    margin: 0 auto;
+}
+
+#buttonRestart {
+    padding-bottom: 20px;
 }
 
 .result {
@@ -46,6 +61,7 @@ ul li {
     width: 320px;
     margin: 8px;
     z-index: 10px;
+    padding-left: 24px;
 }
 
 .result div {
@@ -57,4 +73,34 @@ ul li {
     background-color: white;
     border: 1px solid black;
     text-align: center;
+}
+
+.result input {
+    position: absolute;
+    height: 20px;
+    width: 80px;
+    left: 60px;
+    bottom: 3px;
+}
+
+ul {
+    padding: 10px;
+    list-style: none;
+}
+ul li {
+    line-height: 24px;
+    /* vertical-align: middle; */
+    padding-bottom: 12px;
+}
+ul img {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    padding-right: 10px;
+}
+
+.rule {
+    margin: 0 auto;
+    font-size: 14px;
+    padding-left: 24px;
 }

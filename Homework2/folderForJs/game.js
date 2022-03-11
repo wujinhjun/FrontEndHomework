@@ -5,7 +5,7 @@ const MAP_SIZE = {
     colsNum: 10,
 };
 
-const PROP_NUM = 18;
+const PROP_NUM = 19;
 // the 18 is a magic number, because I like multiples of three
 // in the map, a total of 18 props
 
@@ -20,7 +20,7 @@ const SCORE = {
 // lighting will kill you
 const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
-
+var timer = null;
 
 // You have 30second to finish this game
 
@@ -39,7 +39,6 @@ var loc = {
 
 var scores = 0;
 var timer = null;
-var ifGame = true;
 var ifLight = false;
 // 变量声明结束
 
@@ -47,7 +46,7 @@ var ifLight = false;
 // Initialize the prop and score
 const initBonus = (size, count, score) => {
     const record = [];
-    while (record.length < count) {
+    while (record.length <= count) {
         let row = Math.random() * size.rowsNum; 
         row = Math.floor(row);
         let col = Math.random() * size.colsNum;
@@ -63,9 +62,9 @@ const initBonus = (size, count, score) => {
         // 前十二个为奖牌
         // 中间四个为陷阱
         // 最后两个是闪电（触之即死）
-        if (record.length <= 12) {
+        if (record.length <= 9) {
             record.push([row, col, score.award]);
-        }else if (record.length > 12 && record.length <= 16) {
+        }else if (record.length > 9 && record.length <= 16) {
             record.push([row, col, score.trap]);
         }else if (record.length > 16 && record.length < 18){
             record.push([row, col, score.lighting]);
@@ -139,19 +138,22 @@ const movePlayer = () => {
 
         let i = loc.row, j = loc.col;
         if (map[i][j] != null) {
-            score = map[i][j].score;
-            if (score == HEART) {
+            bonus = map[i][j].bonus;
+            if (bonus == HEART) {
                 timelimiting += HEART;
             }
-            scores += score;
-
+            if (bonus == SCORE.lighting) {
+                ifLight = true;
+            }
+            scores += bonus;
+            stateCheck();
             const oScore = document.getElementsByClassName('score')[0];
             oScore.innerHTML = scores;
-            deleteProp(pos.row, pos.col);
+            deleteProp(loc.row, loc.col);
             map[i][j] = null;
         }
         addPlayer(i, j);
-        console.log(pos.row, pos.col);
+        console.log(loc.row, loc.col);
     }, false)
 }
 
@@ -202,12 +204,12 @@ const drawMap = (map) => {
         const oRow = document.createElement('div');
         oRow.className = 'row';
         for (let j = 0; j < map[0].length; j++) {
-            const oCell = document.createElement('img');
+            const oCell = document.createElement('div');
             oCell.className = 'cell';
             if (map[i][j] != null) {
                 const oImage = document.createElement('img');
                 oImage.class = 'soy';
-                const score = map[i][j].score;
+                const score = map[i][j].bonus;
                 if (score == -99) {
                     oImage.src = './folderForSvg/lighting.svg';
                     ifLight = true;
@@ -242,8 +244,8 @@ const disTip = (result) => {
     const otext = document.createTextNode(message[result]);
     const oRestart = document.createElement('input');
     oRestart.type = 'button';
-    oRestart.value = 'Restart';
-    oRestart.id = 'btnRestart';
+    oRestart.value = '重新开始';
+    oRestart.id = 'buttonRestart';
     oTip.appendChild(otext);
     oTip.appendChild(oRestart);
     oResult.appendChild(oTip);
@@ -258,7 +260,7 @@ const stateCheck = () => {
             timer = null;
         }
 
-        ifGame = false;
+        ifBegin = false;
 
         if (scores > 100) {
             disTip(0);
@@ -266,31 +268,30 @@ const stateCheck = () => {
         if (timelimiting == 0) {
             disTip(1);
         }
-        if (ifLight == true) {
+        if (ifLight) {
             disTip(2);
         }
     }
 }
 
 const start = () => {
-    ifGame = true;
+    ifBegin = true;
     scores = 0;
+    timelimiting = TIME_LIMITING;
     const oTime = document.getElementsByClassName('time')[0];
 
-    timer = setInterval(function(){
-            if (timelimiting > 0) {
-                timelimiting --;
-                stateCheck();
-            }
+    timer = setInterval( function() {
+        if (timelimiting > 0) {
+            timelimiting --;
+            stateCheck();
         }
-    )
+        oTime.innerHTML = timelimiting + 's';
+    }, 1000);
 }
 
 const restart = () => {
     timelimiting = TIME_LIMITING;
-
     scores = 0;
-
     ifLight = false;
 
     loc.row = INIT_LOC.row;
