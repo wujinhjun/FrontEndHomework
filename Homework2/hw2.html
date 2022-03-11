@@ -17,6 +17,25 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="gameMap"></div>
+
+        <div class="info">
+            <input type="button" id = "buttonStart" value="开始游戏"/>
+            <span class="time-text">剩余时间：</span>
+            <span class="time">30 s</span>
+            <span class="score-text">得分： </span>
+            <span class="score">0</span>
+        </div>
+
+        <div class="result">    </div>
+            
+        <div class="rule">
+            <ul>
+                <li><img src="./folderForSvg/award.svg">捡到奖章加15分</li>
+                <li><img src="./folderForSvg/heart.svg">捡到爱心会增加30秒时间，并加30分</li>
+                <li><img src="./folderForSvg/trap.svg">撞上陷阱会扣除30分</li>
+                <li><img src="./folderForSvg/lighting.svg">遭遇雷劫扣除99分</li>
+            </ul>
+        </div>
         
         <script src="./folderForJs/game.js" async defer></script>
     </body>

@@ -18,8 +18,8 @@ const SCORE = {
 // In this game, each awards will add 10 points, 
 // trap will reduce 15 points
 // lighting will kill you
-
-var timelimiting = 30;
+const TIME_LIMITING = 30
+var timelimiting = TIME_LIMITING;
 // You have 30second to finish this game
 
 const HEART = 30;
@@ -36,6 +36,10 @@ var loc = {
 }
 
 var scores = 0;
+var timer = null;
+var ifGame = true;
+var ifLight = false;
+// 变量声明结束
 
 
 // Initialize the prop and score
@@ -144,7 +148,7 @@ const movePlayer = () => {
             deleteProp(pos.row, pos.col);
             map[i][j] = null;
         }
-        addPerson(i, j);
+        addPlayer(i, j);
         console.log(pos.row, pos.col);
     }, false)
 }
@@ -179,7 +183,7 @@ const isNumBonus = (location, record) => {
 }
 
 // add player to the browser
-const addPerson = (row,col) => {
+const addPlayer = (row,col) => {
     const rowAfter = document.getElementsByClassName('row')[row];
     const playerAfter = rowAfter.children[col];
     const disPlayer = document.createElement('img');
@@ -190,9 +194,124 @@ const addPerson = (row,col) => {
 
 // display the map
 const drawMap = (map) => {
-
+    const mapContainer = document.getElementsByClassName('gameMap')[0];
+    mapContainer.innerHTML = '';
+    for (let i = 0; i < map.length; i++) {
+        const oRow = document.createElement('div');
+        oRow.className = 'row';
+        for (let j = 0; j < map[0].length; j++) {
+            const oCell = document.createElement('img');
+            oCell.className = 'cell';
+            if (map[i][j] != null) {
+                const oImage = document.createElement('img');
+                oImage.class = 'soy';
+                const score = map[i][j].score;
+                if (score == -99) {
+                    oImage.src = './folderForSvg/lighting.svg';
+                    ifLight = true;
+                }else if (score == -30) {
+                    oImage.src = './folderForSvg/trap.svg';
+                }else if (score == 30) {
+                    oImage.src = './folderForSvg/heart.svg';
+                }else {
+                    oImage.src = './folderForSvg/award.svg';
+                }
+                oCell.appendChild(oImage);
+            }
+            oRow.appendChild(oCell);
+        }
+        mapContainer.appendChild(oRow);
+    }
 }
 
 var map = initMap(MAP_SIZE, PROP_NUM, SCORE);
 
-drawMap(map);
+const main = () => {
+    console.log(map);
+    drawMap(map);
+    initPlayer();
+}
+
+const disTip = (result) => {
+    message = ["大道通天", "为时已晚", "天雷滚滚",]
+    const oResult = document.getElementsByClassName('result')[0];
+    const oTip = document.createElement('div');
+    oTip.id = 'message';
+    const otext = document.createTextNode(message[result]);
+    const oRestart = document.createElement('input');
+    oRestart.type = 'button';
+    oRestart.value = 'Restart';
+    oRestart.id = 'btnRestart';
+    oTip.appendChild(otext);
+    oTip.appendChild(oRestart);
+    oResult.appendChild(oTip);
+
+    oRestart.addEventListener("click", restart, false);
+}
+
+const stateCheck = () => {
+    if (timelimiting == 0 || scores >= 100) {
+        if (timer != null) {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        ifGame = false;
+
+        if (scores > 100) {
+            disTip(0);
+        }
+        if (timelimiting == 0) {
+            disTip(1);
+        }
+        if (ifLight == true) {
+            disTip(2);
+        }
+    }
+}
+
+const start = () => {
+    ifGame = true;
+    scores = 0;
+    const oTime = document.getElementsByClassName('time')[0];
+
+    timer = setInterval(function(){
+            if (timelimiting > 0) {
+                timelimiting --;
+                stateCheck();
+            }
+        }
+    )
+}
+
+const restart = () => {
+    timelimiting = TIME_LIMITING;
+
+    scores = 0;
+
+    ifLight = false;
+
+    loc.row = INIT_LOC.row;
+    loc.col = INIT_LOC.col;
+
+    const oResult = document.getElementsByClassName('result')[0];
+    oResult.removeChild(oResult.lastElementChild);
+
+    const oTime = document.getElementsByClassName('time')[0];
+    oTime.innerHTML = '30 s';
+    
+    const oScore = document.getElementsByClassName('score')[0];
+    oScore.innerHTML = '0';
+
+    var oStartGame = document.getElementById('buttonStart');
+    oStartGame.removeEventListener('click', movePlayer);
+
+    map = initMap(MAP_SIZE, PROP_NUM, SCORE);
+    main();
+}
+
+main();
+
+var oStartGame = document.getElementById('buttonStart');
+oStartGame.addEventListener("click", start);
+oStartGame.addEventListener('click', movePlayer);
