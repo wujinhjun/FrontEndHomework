@@ -18,8 +18,13 @@ const SCORE = {
 // In this game, each awards will add 10 points, 
 // trap will reduce 15 points
 // lighting will kill you
+<<<<<<< HEAD
 const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
+=======
+
+var timelimiting = 30;
+>>>>>>> db6fcde8b16505ae17a1cff9eef14bfbe34e7509
 // You have 30second to finish this game
 
 const HEART = 30;
@@ -36,10 +41,13 @@ var loc = {
 }
 
 var scores = 0;
+<<<<<<< HEAD
 var timer = null;
 var ifGame = true;
 var ifLight = false;
 // 变量声明结束
+=======
+>>>>>>> db6fcde8b16505ae17a1cff9eef14bfbe34e7509
 
 
 // Initialize the prop and score
@@ -148,7 +156,11 @@ const movePlayer = () => {
             deleteProp(pos.row, pos.col);
             map[i][j] = null;
         }
+<<<<<<< HEAD
         addPlayer(i, j);
+=======
+        addPerson(i, j);
+>>>>>>> db6fcde8b16505ae17a1cff9eef14bfbe34e7509
         console.log(pos.row, pos.col);
     }, false)
 }
@@ -183,7 +195,11 @@ const isNumBonus = (location, record) => {
 }
 
 // add player to the browser
+<<<<<<< HEAD
 const addPlayer = (row,col) => {
+=======
+const addPerson = (row,col) => {
+>>>>>>> db6fcde8b16505ae17a1cff9eef14bfbe34e7509
     const rowAfter = document.getElementsByClassName('row')[row];
     const playerAfter = rowAfter.children[col];
     const disPlayer = document.createElement('img');
@@ -226,6 +242,7 @@ const drawMap = (map) => {
 
 var map = initMap(MAP_SIZE, PROP_NUM, SCORE);
 
+<<<<<<< HEAD
 const main = () => {
     console.log(map);
     drawMap(map);
@@ -315,3 +332,6 @@ main();
 var oStartGame = document.getElementById('buttonStart');
 oStartGame.addEventListener("click", start);
 oStartGame.addEventListener('click', movePlayer);
+=======
+drawMap(map);
+>>>>>>> db6fcde8b16505ae17a1cff9eef14bfbe34e7509
