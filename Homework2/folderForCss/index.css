@@ -24,7 +24,18 @@
 }
 
 ul {
+    margin-top: 0px;
+    padding: 10px;
     list-style: none;
+}
+
+ul img {
+    height: 16px;
+    width: 16px;
+}
+
+ul li {
+    margin: 5px;
 }
 
 .result {
@@ -44,6 +55,6 @@ ul {
     height: 50px;
     width: 200px;
     background-color: white;
-    border: 2px solid black;
+    border: 1px solid black;
     text-align: center;
 }
