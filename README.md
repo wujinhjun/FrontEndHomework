@@ -8,4 +8,6 @@ Before this lesson, I've write some code or script by C/python/lua. And also cre
 
 It is worth mentioning that my English is not good, so readmes may have some grammatical errors. Maybe need to bear me.  
 
-[homework1](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework1)
+[homework1](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework1)  
+
+[homework2](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework2)  
