@@ -1,14 +1,11 @@
 var ifBegin = false;
-
 const MAP_SIZE = {
     rowsNum: 10,
     colsNum: 10,
 };
-
 const PROP_NUM = 18;
 // the 18 is a magic number, because I like multiples of three
 // in the map, a total of 18 props
-
 const SCORE = {
     award: 15,
     trap: -30,
@@ -22,30 +19,29 @@ const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
 var timeCounter = null;
 // You have 30second to finish this game
-
 const HEART = 30;
 // it can add 30 points and 30 seconds
-
 const INIT_LOC = {
     row: 0,
     col: 0,
 };
 // for convince, I use the top left corner as the begining
-
 var loc = {
     row: INIT_LOC.row,
     col: INIT_LOC.col,
 }
-
 const conditionSuccess = 100;
 var scoreSum = 0;
 var ifLight = false;
 // 变量声明结束
 // ended the variable declaration
 
+// ---------------------
+// the core of this game
+// ---------------------
 
 // Initialize the prop and scoreSum
-const initBonus = (size, count, score) => {
+const initScore = (size, count, score) => {
     const scoreRecord = [];
     while (scoreRecord.length <= count + 1) {
         let row = Math.random() * size.rowsNum; 
@@ -80,7 +76,7 @@ const initBonus = (size, count, score) => {
 // initialize the map
 const initMap = (size, count, score) => {
     const map = [];
-    const bonusRecord = initBonus(size, count, score);
+    const bonusRecord = initScore(size, count, score);
 
     for (let row = 0; row < size.rowsNum; row ++){
         const rowItem = [];
@@ -159,43 +155,6 @@ const movePlayer = () => {
     }, false)
 }
 
-// delete the prop
-const deleteProp = (row, col) => {
-    const rowBefore = document.getElementsByClassName('row')[row];
-    const playerBefore = rowBefore.children[col];
-    if (playerBefore.lastElementChild) {
-        playerBefore.removeChild(playerBefore.lastChild);
-    }
-}
-
-// judge the score and repeat
-const isExistBonus = (location, record) => {
-    for (let i = 0; i < record.length; i++){
-        if ((location[0] == record[i][0]) && location[1] == record[i][1]){
-            return true;
-        }
-    }
-    return false;
-}
-const theNumScoreForCell = (location, record) => {
-    for (let i = 0; i < PROP_NUM + 1; i++) {
-        if ((location[0] == record[i][0]) && (location[1] == record[i][1])) {
-            return record[i][2];
-        }
-    }
-    return 0;
-}
-
-// add player to the browser
-const addPlayer = (row,col) => {
-    const rowAfter = document.getElementsByClassName('row')[row];
-    const playerAfter = rowAfter.children[col];
-    const disPlayer = document.createElement('img');
-    disPlayer.class = 'player';
-    disPlayer.src = './folderForSvg/githubUser.svg';
-    playerAfter.appendChild(disPlayer);
-}
-
 // display the map
 const drawMap = (map) => {
     const mapContainer = document.getElementsByClassName('gameMap')[0];
@@ -228,21 +187,44 @@ const drawMap = (map) => {
     }
 }
 
-const disTip = (result) => {
-    message = ["大道通天", "为时已晚", "天雷滚滚",]
-    const oneResult = document.getElementsByClassName('result')[0];
-    const oneTip = document.createElement('div');
-    oneTip.id = 'message';
-    const newtext = document.createTextNode(message[result]);
-    const theRestart = document.createElement('input');
-    theRestart.type = 'button';
-    theRestart.value = '重新开始';
-    theRestart.id = 'buttonRestart';
-    oneTip.appendChild(newtext);
-    oneTip.appendChild(theRestart);
-    oneResult.appendChild(oneTip);
+// ---------------------
+// the dev of this game
+// ---------------------
+// delete the prop
+const deleteProp = (row, col) => {
+    const rowBefore = document.getElementsByClassName('row')[row];
+    const playerBefore = rowBefore.children[col];
+    if (playerBefore.lastElementChild) {
+        playerBefore.removeChild(playerBefore.lastChild);
+    }
+}
 
-    theRestart.addEventListener("click", restart, false);
+// judge the score and repeat(maybe the two function can merge)
+const isExistBonus = (location, record) => {
+    for (let i = 0; i < record.length; i++){
+        if ((location[0] == record[i][0]) && location[1] == record[i][1]){
+            return true;
+        }
+    }
+    return false;
+}
+const theNumScoreForCell = (location, record) => {
+    for (let i = 0; i < PROP_NUM + 1; i++) {
+        if ((location[0] == record[i][0]) && (location[1] == record[i][1])) {
+            return record[i][2];
+        }
+    }
+    return 0;
+}
+
+// add player to the browser
+const addPlayer = (row,col) => {
+    const rowAfter = document.getElementsByClassName('row')[row];
+    const playerAfter = rowAfter.children[col];
+    const disPlayer = document.createElement('img');
+    disPlayer.class = 'player';
+    disPlayer.src = './folderForSvg/githubUser.svg';
+    playerAfter.appendChild(disPlayer);
 }
 
 // check the time and score
@@ -267,6 +249,27 @@ const stateCheck = () => {
     }
 }
 
+// display the result
+const disTip = (result) => {
+    message = ["大道通天", "为时已晚", "天雷滚滚",]
+    const oneResult = document.getElementsByClassName('result')[0];
+    const oneTip = document.createElement('div');
+    oneTip.id = 'message';
+    const newtext = document.createTextNode(message[result]);
+    const theRestart = document.createElement('input');
+    theRestart.type = 'button';
+    theRestart.value = '重新开始';
+    theRestart.id = 'buttonRestart';
+    oneTip.appendChild(newtext);
+    oneTip.appendChild(theRestart);
+    oneResult.appendChild(oneTip);
+
+    theRestart.addEventListener("click", restart, false);
+}
+
+// ---------------------
+// the logic of this game
+// ---------------------
 const start = () => {
     ifBegin = true;
     scoreSum = 0;
@@ -315,8 +318,11 @@ const main = () => {
     initPlayer();
 }
 
+// ---------------------
+// the begining of this game
+// ---------------------
 main();
 
-var newStartGame = document.getElementById('buttonStart');
-newStartGame.addEventListener("click", start);
+var newStartGame = document.getElementById('buttonForStart');
+newStartGame.addEventListener('click', start);
 newStartGame.addEventListener('click', movePlayer);
