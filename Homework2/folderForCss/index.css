@@ -28,25 +28,27 @@
     justify-content: center;
 }
 
-.info {
+.state {
     margin: 10px auto;
     font-size: 15px;
     padding-left: 24px;
 }
 
-.info button {
+.state button {
     position: relative;
     margin: auto;
 }
 
-.info .time-text {
+.state .time-text {
     position: relative;
     margin: 0 auto;
+    padding-left: 24px;
 }
 
-.info .time {
+.state .time {
     position: relative;
     margin: 0 auto;
+    padding-right: 12px;
 }
 
 #buttonRestart {
@@ -83,6 +85,12 @@
     bottom: 3px;
 }
 
+.rule {
+    margin: 0 auto;
+    font-size: 14px;
+    padding-left: 24px;
+}
+
 ul {
     padding: 10px;
     list-style: none;
@@ -97,10 +105,4 @@ ul img {
     width: 24px;
     vertical-align: middle;
     padding-right: 10px;
-}
-
-.rule {
-    margin: 0 auto;
-    font-size: 14px;
-    padding-left: 24px;
 }

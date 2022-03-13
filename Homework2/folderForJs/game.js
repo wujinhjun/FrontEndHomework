@@ -5,7 +5,7 @@ const MAP_SIZE = {
     colsNum: 10,
 };
 
-const PROP_NUM = 19;
+const PROP_NUM = 18;
 // the 18 is a magic number, because I like multiples of three
 // in the map, a total of 18 props
 
@@ -21,7 +21,6 @@ const SCORE = {
 const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
 var timeCounter = null;
-
 // You have 30second to finish this game
 
 const HEART = 30;
@@ -31,21 +30,24 @@ const INIT_LOC = {
     row: 0,
     col: 0,
 };
+// for convince, I use the top left corner as the begining
 
 var loc = {
     row: INIT_LOC.row,
     col: INIT_LOC.col,
 }
 
-var scores = 0;
+const conditionSuccess = 100;
+var scoreSum = 0;
 var ifLight = false;
 // 变量声明结束
+// ended the variable declaration
 
 
-// Initialize the prop and score
+// Initialize the prop and scoreSum
 const initBonus = (size, count, score) => {
-    const record = [];
-    while (record.length <= count) {
+    const scoreRecord = [];
+    while (scoreRecord.length <= count + 1) {
         let row = Math.random() * size.rowsNum; 
         row = Math.floor(row);
         let col = Math.random() * size.colsNum;
@@ -55,23 +57,24 @@ const initBonus = (size, count, score) => {
         }
         // (英文实在有点菜，为了效率还是写中文吧)
         // 判断是否会有冲突出现
-        if (isExistBonus([row, col], record)){
+        if (isExistBonus([row, col], scoreRecord)){
             continue;
         }
         // 前十二个为奖牌
         // 中间四个为陷阱
-        // 最后两个是闪电（触之即死）
-        if (record.length <= 9) {
-            record.push([row, col, score.award]);
-        }else if (record.length > 9 && record.length <= 16) {
-            record.push([row, col, score.trap]);
-        }else if (record.length > 16 && record.length < 18){
-            record.push([row, col, score.lighting]);
+        // 然后是闪电（触之即死）
+        // 爱心会加三十点和三十秒
+        if (scoreRecord.length <= 9) {
+            scoreRecord.push([row, col, score.award]);
+        }else if (scoreRecord.length > 9 && scoreRecord.length <= 16) {
+            scoreRecord.push([row, col, score.trap]);
+        }else if (scoreRecord.length > 16 && scoreRecord.length < 18){
+            scoreRecord.push([row, col, score.lighting]);
         }else {
-            record.push([row, col, HEART])
+            scoreRecord.push([row, col, HEART])
         }
     }
-    return record;
+    return scoreRecord;
 }
 
 // initialize the map
@@ -83,12 +86,12 @@ const initMap = (size, count, score) => {
         const rowItem = [];
 
         for (let col = 0; col < size.colsNum; col ++){
-            const bonusScore = isNumBonus([row, col], bonusRecord);
+            const thisCellScore = theNumScoreForCell([row, col], bonusRecord);
 
-            if (bonusScore == 0) {
+            if (thisCellScore == 0) {
                 rowItem.push(null);
             }else {
-                rowItem.push({bonus: bonusScore});
+                rowItem.push({score: thisCellScore});
             }
         }
         map.push(rowItem);
@@ -137,17 +140,17 @@ const movePlayer = () => {
 
         let i = loc.row, j = loc.col;
         if (map[i][j] != null) {
-            bonus = map[i][j].bonus;
+            bonus = map[i][j].score;
             if (bonus == HEART) {
                 timelimiting += HEART;
             }
             if (bonus == SCORE.lighting) {
                 ifLight = true;
             }
-            scores += bonus;
+            scoreSum += bonus;
             stateCheck();
             const oScore = document.getElementsByClassName('score')[0];
-            oScore.innerHTML = scores;
+            oScore.innerHTML = scoreSum;
             deleteProp(loc.row, loc.col);
             map[i][j] = null;
         }
@@ -172,11 +175,10 @@ const isExistBonus = (location, record) => {
             return true;
         }
     }
-
     return false;
 }
-const isNumBonus = (location, record) => {
-    for (let i = 0; i < PROP_NUM; i++) {
+const theNumScoreForCell = (location, record) => {
+    for (let i = 0; i < PROP_NUM + 1; i++) {
         if ((location[0] == record[i][0]) && (location[1] == record[i][1])) {
             return record[i][2];
         }
@@ -206,8 +208,8 @@ const drawMap = (map) => {
             oneCell.className = 'cell';
             if (map[i][j] != null) {
                 const oneIcon = document.createElement('img');
-                oneIcon.class = 'soy';
-                const score = map[i][j].bonus;
+                // oneIcon.class = 'soy';
+                const score = map[i][j].score;
                 if (score == -99) {
                     oneIcon.src = './folderForSvg/lighting.svg';
                     // ifLight = true;
@@ -226,40 +228,33 @@ const drawMap = (map) => {
     }
 }
 
-var map = initMap(MAP_SIZE, PROP_NUM, SCORE);
-
-const main = () => {
-    console.log(map);
-    drawMap(map);
-    initPlayer();
-}
-
 const disTip = (result) => {
     message = ["大道通天", "为时已晚", "天雷滚滚",]
-    const oResult = document.getElementsByClassName('result')[0];
-    const oTip = document.createElement('div');
-    oTip.id = 'message';
-    const otext = document.createTextNode(message[result]);
-    const oRestart = document.createElement('input');
-    oRestart.type = 'button';
-    oRestart.value = '重新开始';
-    oRestart.id = 'buttonRestart';
-    oTip.appendChild(otext);
-    oTip.appendChild(oRestart);
-    oResult.appendChild(oTip);
+    const oneResult = document.getElementsByClassName('result')[0];
+    const oneTip = document.createElement('div');
+    oneTip.id = 'message';
+    const newtext = document.createTextNode(message[result]);
+    const theRestart = document.createElement('input');
+    theRestart.type = 'button';
+    theRestart.value = '重新开始';
+    theRestart.id = 'buttonRestart';
+    oneTip.appendChild(newtext);
+    oneTip.appendChild(theRestart);
+    oneResult.appendChild(oneTip);
 
-    oRestart.addEventListener("click", restart, false);
+    theRestart.addEventListener("click", restart, false);
 }
 
+// check the time and score
 const stateCheck = () => {
-    if (timelimiting == 0 || scores >= 100 || ifLight == true) {
+    if (timelimiting == 0 || scoreSum >= conditionSuccess || ifLight == true) {
         if (timeCounter != null) {
             clearInterval(timeCounter);
             timeCounter = null;
         }
         ifBegin = false;
 
-        if (scores >= 100) {
+        if (scoreSum >= conditionSuccess) {
             disTip(0);
         }
         if (timelimiting == 0) {
@@ -268,13 +263,13 @@ const stateCheck = () => {
         if (ifLight == true) {
             disTip(2);
         }
-        console.log(timeCounter, scores, ifLight);
+        console.log(timeCounter, scoreSum, ifLight);
     }
 }
 
 const start = () => {
     ifBegin = true;
-    scores = 0;
+    scoreSum = 0;
     timelimiting = TIME_LIMITING;
     const oTime = document.getElementsByClassName('time')[0];
 
@@ -285,34 +280,43 @@ const start = () => {
         }
         oTime.innerHTML = timelimiting + 's';
     }, 1000);
+    // before this, I forger the';'. So the speed of time are so fast. It is interesing
 }
 
 const restart = () => {
     timelimiting = TIME_LIMITING;
-    scores = 0;
+    scoreSum = 0;
     ifLight = false;
 
     loc.row = INIT_LOC.row;
     loc.col = INIT_LOC.col;
 
-    const oResult = document.getElementsByClassName('result')[0];
-    oResult.removeChild(oResult.lastElementChild);
+    const theResult = document.getElementsByClassName('result')[0];
+    theResult.removeChild(theResult.lastElementChild);
 
-    const oTime = document.getElementsByClassName('time')[0];
-    oTime.innerHTML = '30 s';
+    const ruleTime = document.getElementsByClassName('time')[0];
+    ruleTime.innerHTML = '30 s';
     
-    const oScore = document.getElementsByClassName('score')[0];
-    oScore.innerHTML = '0';
+    const ruleScore = document.getElementsByClassName('score')[0];
+    ruleScore.innerHTML = '0';
 
-    var oStartGame = document.getElementById('buttonStart');
-    oStartGame.removeEventListener('click', movePlayer);
+    var newStartGame = document.getElementById('buttonStart');
+    newStartGame.removeEventListener('click', movePlayer);
 
-    map = initMap(MAP_SIZE, PROP_NUM, SCORE);
+    map = initMap(MAP_SIZE, PROP_NUM + 1, SCORE);
     main();
+}
+
+var map = initMap(MAP_SIZE, PROP_NUM + 1, SCORE);
+
+const main = () => {
+    console.log(map);
+    drawMap(map);
+    initPlayer();
 }
 
 main();
 
-var oStartGame = document.getElementById('buttonStart');
-oStartGame.addEventListener("click", start);
-oStartGame.addEventListener('click', movePlayer);
+var newStartGame = document.getElementById('buttonStart');
+newStartGame.addEventListener("click", start);
+newStartGame.addEventListener('click', movePlayer);
