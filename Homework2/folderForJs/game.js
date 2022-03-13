@@ -20,7 +20,7 @@ const SCORE = {
 // lighting will kill you
 const TIME_LIMITING = 30
 var timelimiting = TIME_LIMITING;
-var timer = null;
+var timeCounter = null;
 
 // You have 30second to finish this game
 
@@ -38,7 +38,6 @@ var loc = {
 }
 
 var scores = 0;
-var timer = null;
 var ifLight = false;
 // 变量声明结束
 
@@ -118,7 +117,7 @@ const movePlayer = () => {
                 break;
 
             case (40):
-                if (loc.row < MAP_SIZE.rowsNum) {
+                if (loc.row + 1 < MAP_SIZE.rowsNum) {
                     loc.row ++;
                 }
                 break;
@@ -130,7 +129,7 @@ const movePlayer = () => {
                 break;
 
             case (39):
-                if (loc.col < MAP_SIZE.colsNum) {
+                if (loc.col + 1 < MAP_SIZE.colsNum) {
                     loc.col ++;
                 }
                 break;
@@ -182,7 +181,6 @@ const isNumBonus = (location, record) => {
             return record[i][2];
         }
     }
-
     return 0;
 }
 
@@ -201,30 +199,30 @@ const drawMap = (map) => {
     const mapContainer = document.getElementsByClassName('gameMap')[0];
     mapContainer.innerHTML = '';
     for (let i = 0; i < map.length; i++) {
-        const oRow = document.createElement('div');
-        oRow.className = 'row';
+        const oneRow = document.createElement('div');
+        oneRow.className = 'row';
         for (let j = 0; j < map[0].length; j++) {
-            const oCell = document.createElement('div');
-            oCell.className = 'cell';
+            const oneCell = document.createElement('div');
+            oneCell.className = 'cell';
             if (map[i][j] != null) {
-                const oImage = document.createElement('img');
-                oImage.class = 'soy';
+                const oneIcon = document.createElement('img');
+                oneIcon.class = 'soy';
                 const score = map[i][j].bonus;
                 if (score == -99) {
-                    oImage.src = './folderForSvg/lighting.svg';
-                    ifLight = true;
+                    oneIcon.src = './folderForSvg/lighting.svg';
+                    // ifLight = true;
                 }else if (score == -30) {
-                    oImage.src = './folderForSvg/trap.svg';
+                    oneIcon.src = './folderForSvg/trap.svg';
                 }else if (score == 30) {
-                    oImage.src = './folderForSvg/heart.svg';
+                    oneIcon.src = './folderForSvg/heart.svg';
                 }else {
-                    oImage.src = './folderForSvg/award.svg';
+                    oneIcon.src = './folderForSvg/award.svg';
                 }
-                oCell.appendChild(oImage);
+                oneCell.appendChild(oneIcon);
             }
-            oRow.appendChild(oCell);
+            oneRow.appendChild(oneCell);
         }
-        mapContainer.appendChild(oRow);
+        mapContainer.appendChild(oneRow);
     }
 }
 
@@ -254,23 +252,23 @@ const disTip = (result) => {
 }
 
 const stateCheck = () => {
-    if (timelimiting == 0 || scores >= 100) {
-        if (timer != null) {
-            clearInterval(timer);
-            timer = null;
+    if (timelimiting == 0 || scores >= 100 || ifLight == true) {
+        if (timeCounter != null) {
+            clearInterval(timeCounter);
+            timeCounter = null;
         }
-
         ifBegin = false;
 
-        if (scores > 100) {
+        if (scores >= 100) {
             disTip(0);
         }
         if (timelimiting == 0) {
             disTip(1);
         }
-        if (ifLight) {
+        if (ifLight == true) {
             disTip(2);
         }
+        console.log(timeCounter, scores, ifLight);
     }
 }
 
@@ -280,7 +278,7 @@ const start = () => {
     timelimiting = TIME_LIMITING;
     const oTime = document.getElementsByClassName('time')[0];
 
-    timer = setInterval( function() {
+    timeCounter = setInterval( function() {
         if (timelimiting > 0) {
             timelimiting --;
             stateCheck();
