@@ -1,5 +1,5 @@
 {
-  "name": "theToDoListTry",
+  "name": "the-todo-list-try",
   "version": "0.1.0",
   "scripts": {
     "reset": "del-cli node_modules",
