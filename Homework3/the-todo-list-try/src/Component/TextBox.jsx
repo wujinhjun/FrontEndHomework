@@ -1,9 +1,23 @@
 export function TextBox(props) {
-    const {theListActivated, setTheListActived, theListArrange, setNumOfAssignment} = props;
-
-    return (
-        <span>
-            <input type="checkbox" className="toggle-all" id="toggle-all" />
-        </span>
-    )
+  const { setBuildAssignment } = props;
+  return (
+    <input
+      type="text"
+      id="textBox"
+      className="new-todo"
+      placeholder="What needs to be done?"
+      onBlur={() => {
+        setBuildAssignment(document.getElementById('textBox').value);
+        const btnTemp = document.getElementById('toggle-all');
+        btnTemp.checked = false;
+      }}
+      onKeyDown={e => {
+        const enterCode = 13;
+        if (e.keyCode === enterCode) {
+          setBuildAssignment(document.getElementById('textBox').value);
+          const btnTemp = document.getElementById('toggle-all');
+          btnTemp.checked = false;
+        }
+      }}></input>
+  );
 }

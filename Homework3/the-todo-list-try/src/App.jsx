@@ -6,7 +6,7 @@ import { MainPage } from './Component/MainPage';
 
 export function App() {
   return (
-      <>
+    <>
       <MainPage />
       <footer className="info">
         <div className="tips">
@@ -25,8 +25,8 @@ export function App() {
           Part of <a href="http://todomvc.com">TodoMVC</a>
         </p>
       </footer>
-      </>
-  )
-};
+    </>
+  );
+}
 
 export default App;
