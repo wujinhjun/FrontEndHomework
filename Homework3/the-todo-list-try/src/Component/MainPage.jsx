@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { TextBox } from './TextBox';
 import { TextEnter } from './TextEnter';
 import { AssignmentList } from './AssignmentList';
+import { AssignmentControl } from './AssignmentControl';
 
 export function MainPage() {
-  const [buildAssignment, setBuildAssignment] = useState(' ');
+  const [buildAssignment, setBuildAssignment] = useState('');
   const [listOfAssignment, setListOfAssignment] = useState([]);
   const [theListActivated, setTheListActived] = useState([]);
   const [theListArrange, setTheListArrange] = useState([]);
@@ -32,6 +33,10 @@ export function MainPage() {
         setTheListArrange={setTheListArrange}
         setNumOfAssignment={setNumOfAssignment}
         theUserStage={theUserStage}
+      />
+      <AssignmentControl
+        numOfAssignment={numOfAssignment}
+        setTheUserStage={setTheUserStage}
       />
     </div>
   );

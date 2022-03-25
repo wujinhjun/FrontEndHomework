@@ -1,18 +1,8 @@
 import { useState } from 'react';
 import { AssignmentDelete } from './AssignmentDelete';
 import { AssignmentJudge } from './AssignmentJudge';
-
-function ItsState(props) {
-  const { editing, edited } = props;
-
-  if (editing) {
-    return 'editing';
-  } else if (edited) {
-    return 'edited';
-  } else {
-    return 'watch';
-  }
-}
+import { AssignmentEdit } from './AssignmentEdit';
+import { ItsState } from './ItsState';
 
 export function ItemList(props) {
   const {
@@ -36,7 +26,7 @@ export function ItemList(props) {
         edited: theListActivated[index] === 1 ? 0 : 1,
       })}
       id={`theAssign${index}`}>
-      <div className="watch">
+      <div className="view">
         <AssignmentJudge
           index={index}
           theListActivated={theListActivated}
@@ -57,6 +47,12 @@ export function ItemList(props) {
           setNumOfAssignment={setNumOfAssignment}
         />
       </div>
+      <AssignmentEdit
+        index={index}
+        listOfAssignment={listOfAssignment}
+        setListOfAssignment={setListOfAssignment}
+        setIfEditing={setIfEditing}
+      />
     </li>
   );
 }

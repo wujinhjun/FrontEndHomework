@@ -1,11 +1,11 @@
 export function AssignmentDelete(props) {
-  const [
+  const {
     index,
     theListActivated,
     theListArrange,
     setTheListArrange,
     setNumOfAssignment,
-  ] = props;
+  } = props;
 
   return (
     <button

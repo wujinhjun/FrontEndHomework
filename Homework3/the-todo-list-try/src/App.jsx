@@ -1,5 +1,3 @@
-import { Switch, Route } from '@modern-js/runtime/router';
-
 import './folderForCSS/App.css';
 import './folderForCSS/index.css';
 import { MainPage } from './Component/MainPage';

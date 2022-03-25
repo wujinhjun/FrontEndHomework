@@ -16,7 +16,7 @@ export function TextEnter(props) {
           const tempVar = theListActivated;
           let countTemp = 0;
           for (let i = 0; i < theListActivated.length; i++) {
-            countTemp += tempVar[i] + theListArrange[i] <= 1 ? 0 : 1;
+            countTemp += tempVar[i] + theListArrange[i] < 1 ? 0 : 1;
           }
 
           if (countTemp > 0) {
@@ -42,7 +42,7 @@ export function TextEnter(props) {
           setTheListActived(tempVar);
         }}
       />
-      {/* <label htmlFor="toggle-all"></label> */}
+      <label htmlFor="toggle-all"></label>
     </span>
   );
 }

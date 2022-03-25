@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-// import { checkAssignment } from './checkAssignment';
 import { ItemList } from './ItemList';
 
 export function AssignmentList(props) {
@@ -34,7 +33,7 @@ export function AssignmentList(props) {
           if (
             (theListActivated[i] === theUserStage[0] ||
               theListActivated[i] === theUserStage[1]) &&
-            theUserStage[i] === 1
+            theListArrange[i] === 1
           ) {
             return (
               <ItemList
@@ -44,7 +43,7 @@ export function AssignmentList(props) {
                 setListOfAssignment={setListOfAssignment}
                 theListActivated={theListActivated}
                 setTheListActived={setTheListActived}
-                theUserStage={theUserStage}
+                theListArrange={theListArrange}
                 setTheListArrange={setTheListArrange}
                 setNumOfAssignment={setNumOfAssignment}
               />
