@@ -3,10 +3,10 @@ export function AssignmentEdit(props) {
   return (
     <input
       className="edit"
-      id={`editing${index}`}
+      id={`edit${index}`}
       onBlur={() => {
         const temp = listOfAssignment;
-        temp[index] = String(document.getElementById(`editing${index}`).value);
+        temp[index] = String(document.getElementById(`edit${index}`).value);
         if (temp[index] === '') {
           return;
         }
@@ -16,9 +16,7 @@ export function AssignmentEdit(props) {
       onKeyDown={e => {
         if (e.keyCode === 13) {
           const temp = listOfAssignment;
-          temp[index] = String(
-            document.getElementById(`editing${index}`).value,
-          );
+          temp[index] = String(document.getElementById(`edit${index}`).value);
           if (temp[index] === '') {
             return;
           }

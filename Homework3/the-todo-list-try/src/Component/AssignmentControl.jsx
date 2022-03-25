@@ -5,8 +5,14 @@ export function AssignmentControl(props) {
   const { numOfAssignment, setTheUserStage } = props;
 
   const [ifSelect, setIfSelect] = useState(1);
-  const tempText = numOfAssignment === 1 ? ' item ' : ' items ';
-  if (numOfAssignment === 0) {
+  let tempText;
+  if (numOfAssignment === 1) {
+    tempText = ' item ';
+  } else {
+    tempText = ' items ';
+  }
+  const sumNum = numOfAssignment;
+  if (sumNum === 0) {
     return null;
   } else {
     return (

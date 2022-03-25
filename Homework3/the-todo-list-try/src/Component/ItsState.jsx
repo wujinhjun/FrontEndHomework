@@ -1,9 +1,9 @@
 export function ItsState(props) {
-  const { editing, edited } = props;
+  const { editing, completed } = props;
 
   if (editing) {
     return 'editing';
-  } else if (edited) {
+  } else if (completed) {
     return 'completed';
   } else {
     return 'view';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TextBox } from './TextBox';
-import { TextEnter } from './TextEnter';
+import { AssignmentBox } from './AssignmentBox';
+import { AssignmentCondition } from './AssignmentCondition';
 import { AssignmentList } from './AssignmentList';
 import { AssignmentControl } from './AssignmentControl';
 
@@ -15,9 +15,9 @@ export function MainPage() {
     <div className="todoapp">
       <h1>todos</h1>
       <header className="header">
-        <TextBox setBuildAssignment={setBuildAssignment} />
+        <AssignmentBox setBuildAssignment={setBuildAssignment} />
       </header>
-      <TextEnter
+      <AssignmentCondition
         theListActivated={theListActivated}
         setTheListActived={setTheListActived}
         theListArrange={theListArrange}

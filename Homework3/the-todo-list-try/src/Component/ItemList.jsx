@@ -23,7 +23,7 @@ export function ItemList(props) {
       key={index}
       className={ItsState({
         editing: ifEditing,
-        edited: theListActivated[index] === 1 ? 0 : 1,
+        completed: theListActivated[index] === 1 ? 0 : 1,
       })}
       id={`theAssign${index}`}>
       <div className="view">
@@ -38,6 +38,7 @@ export function ItemList(props) {
             setIfEditing(true);
           }}>
           {listOfAssignment[index]}
+          {/* {index} */}
         </label>
         <AssignmentDelete
           index={index}

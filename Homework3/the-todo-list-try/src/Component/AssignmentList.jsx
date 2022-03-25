@@ -16,29 +16,28 @@ export function AssignmentList(props) {
 
   useEffect(() => {
     if (buildAssignment !== '') {
-      setNumOfAssignment([...listOfAssignment, buildAssignment]);
+      setListOfAssignment([...listOfAssignment, buildAssignment]);
       setTheListActived([...theListActivated, 1]);
       setTheListArrange([...theListArrange, 1]);
       setNumOfAssignment(prev => prev + 1);
     }
   }, [buildAssignment]);
   useEffect(() => {
-    document.getElementById('textBox').value = '';
+    document.getElementById('BoxText').value = '';
   }, [listOfAssignment]);
 
   return (
     <section>
       <ul className="todo-list">
-        {theListActivated.map((num, i) => {
+        {listOfAssignment.map((num, index) => {
           if (
-            (theListActivated[i] === theUserStage[0] ||
-              theListActivated[i] === theUserStage[1]) &&
-            theListArrange[i] === 1
+            (theListActivated[index] === theUserStage[0] ||
+              theListActivated[index] === theUserStage[1]) &&
+            theListArrange[index] === 1
           ) {
             return (
               <ItemList
-                key={i}
-                index={i}
+                index={index}
                 listOfAssignment={listOfAssignment}
                 setListOfAssignment={setListOfAssignment}
                 theListActivated={theListActivated}

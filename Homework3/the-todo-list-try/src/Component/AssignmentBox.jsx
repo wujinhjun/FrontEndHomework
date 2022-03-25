@@ -1,20 +1,19 @@
-export function TextBox(props) {
+export function AssignmentBox(props) {
   const { setBuildAssignment } = props;
   return (
     <input
       type="text"
-      id="textBox"
+      id="BoxText"
       className="new-todo"
       placeholder="What needs to be done?"
       onBlur={() => {
-        setBuildAssignment(document.getElementById('textBox').value);
+        setBuildAssignment(document.getElementById('BoxText').value);
         const btnTemp = document.getElementById('toggle-all');
         btnTemp.checked = false;
       }}
       onKeyDown={e => {
-        const enterCode = 13;
-        if (e.keyCode === enterCode) {
-          setBuildAssignment(document.getElementById('textBox').value);
+        if (e.keyCode === 13) {
+          setBuildAssignment(document.getElementById('BoxText').value);
           const btnTemp = document.getElementById('toggle-all');
           btnTemp.checked = false;
         }

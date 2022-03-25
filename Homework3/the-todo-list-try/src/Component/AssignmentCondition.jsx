@@ -1,4 +1,4 @@
-export function TextEnter(props) {
+export function AssignmentCondition(props) {
   const {
     theListActivated,
     setTheListActived,
@@ -9,9 +9,9 @@ export function TextEnter(props) {
   return (
     <span>
       <input
-        type="checkbox"
         className="toggle-all"
         id="toggle-all"
+        type="checkbox"
         onClick={() => {
           const tempVar = theListActivated;
           let countTemp = 0;
@@ -22,18 +22,18 @@ export function TextEnter(props) {
           if (countTemp > 0) {
             for (let i = 0; i < theListActivated.length; i++) {
               tempVar[i] = 0;
-              const thisTemp = document.getElementById(`button${i}`);
-              if (thisTemp != null) {
-                thisTemp.checked = true;
+              const theTemp = document.getElementById(`button${i}`);
+              if (theTemp != null) {
+                theTemp.checked = true;
               }
             }
             setNumOfAssignment(0);
           } else {
             for (let i = 0; i < theListActivated.length; i++) {
               tempVar[i] = 1;
-              const thisTemp = document.getElementById(`button${i}`);
-              if (thisTemp != null) {
-                thisTemp.checked = false;
+              const theTemp = document.getElementById(`button${i}`);
+              if (theTemp != null) {
+                theTemp.checked = false;
               }
               countTemp += tempVar[i] + theListArrange[i] <= 1 ? 0 : 1;
             }
@@ -42,7 +42,7 @@ export function TextEnter(props) {
           setTheListActived(tempVar);
         }}
       />
-      <label htmlFor="toggle-all"></label>
+      <label htmlFor="toggle-all">::before</label>
     </span>
   );
 }
