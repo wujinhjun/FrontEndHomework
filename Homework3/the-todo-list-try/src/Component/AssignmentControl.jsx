@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { BottomButton } from './BottomButton';
+// import { AssignmentClear } from './AssignmentClear';
 
 export function AssignmentControl(props) {
-  const { numOfAssignment, setTheUserStage } = props;
+  const {
+    numOfAssignment,
+    setTheUserStage,
+    // listOfAssignment,
+    // theListActiveted,
+    // theListArrange,
+    // setTheListArrange,
+  } = props;
 
   const [ifSelect, setIfSelect] = useState(1);
   let tempText;
@@ -52,6 +60,12 @@ export function AssignmentControl(props) {
             />
           </li>
         </ul>
+        {/* <AssignmentClear
+          listOfAssignment={listOfAssignment}
+          theListActivated={theListActiveted}
+          theListArrange={theListArrange}
+          setTheListArrange={setTheListArrange}
+        /> */}
       </footer>
     );
   }

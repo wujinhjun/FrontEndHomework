@@ -37,6 +37,10 @@ export function MainPage() {
       <AssignmentControl
         numOfAssignment={numOfAssignment}
         setTheUserStage={setTheUserStage}
+        listOfAssignment={listOfAssignment}
+        theListActivated={theListActivated}
+        theListArrange={theListArrange}
+        setTheListArrange={setTheListArrange}
       />
     </div>
   );
