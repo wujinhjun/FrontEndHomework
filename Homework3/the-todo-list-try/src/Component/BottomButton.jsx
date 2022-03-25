@@ -1,13 +1,4 @@
-// import { ClassName } from './ClassName';
-
-function ClassName(props) {
-  const { ifSelect, theOrder } = props;
-  if (ifSelect === theOrder) {
-    return 'selected';
-  } else {
-    return 'button';
-  }
-}
+import { ClassName } from './ClassName';
 
 export function BottomButton(props) {
   const { setTheUserStage, choice, content, ifSelect, setIfSelect, theOrder } =
