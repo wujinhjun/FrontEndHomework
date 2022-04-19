@@ -1,0 +1,184 @@
+@import url(index.css);
+@import url(header.css);
+@import url(introduction.css);
+@import url(main-feature-MWA.css);
+
+/* 好不体面的个解法 */
+@media (max-width: 1400px) {
+    .gg, .hh {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    .ff, .gg, .hh {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    .ee, .ff, .gg, .hh {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .dd, .ee, .ff, .gg, .hh {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .cc, .ee, .ff, .gg, .hh {
+        display: none;
+    }
+}
+/* 真的不能接受，好丑 */
+
+@media (max-width: 1240px) {
+    .card-mwa {
+        height: 284px;
+        margin-bottom: 16px;
+        padding: 33.5px 3.9vw;
+        width: calc(50% - 16px);
+    }
+}
+
+@media (min-width: 966px) and (max-width: 1300px) {
+    .main-feature {
+        padding: 108px 43px 0;
+    }
+
+    .list-card {
+        flex: 1 1 48%;
+        max-width: 48%;
+    }
+
+    .feature-layout {
+        padding: 0 40px;
+    }
+} 
+
+@media (max-width: 996px) {
+    .nav-item, .toggle-switch-2 {
+        display: none;
+    }
+    
+    .nav-toggle {
+        display: inherit;
+    }
+
+    .short-cut-icon {
+        display: none;
+    }
+
+    .search-bar-input {
+        width: 9rem;
+    }
+
+    /* banner */
+    .hero {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .banner {
+        align-items: center;
+        background-image: url(https://lf3-static.bytednsdoc.com/obj/eden-cn/aphqeh7uhohpquloj/modern-js/banner-mobile-bg.png);
+        padding: 2rem;
+    }
+
+    .banner-logo {
+        width: 70vw;
+    }
+
+    .banner-title {
+        font-size: 8vw;
+    }
+
+    .button-main-three {
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 30px;
+        width: 65%;
+    }
+
+    .start-enter, .button-doc {
+        width: 100%;
+    }
+
+    .button-doc {
+        margin-top: 42px;
+        margin-left: 0;
+    }
+
+    .main-feature {
+        padding: 70px 21.5px 0px;
+    }
+
+    .background-modern {
+        display: none;
+    }
+
+    .list-feature {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .list-card {
+        flex: none;
+        height: 70px;
+        margin: 0 0 12px;
+        padding: 0 31px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .icon-card {
+        height: 20px;
+        width: 20px;
+    }
+
+    .feature-layout {
+        display: flex;
+        margin-top: 41px;
+        padding: 0 21.5px;
+    }
+
+    .single-img {
+        max-width: 100%;
+    } 
+}
+
+@media (max-width: 700px) {
+    .background-modern {
+        font-size: 2.48vw;
+    }
+    
+    .feature-title {
+        background-size: 51.6vw 4.51vw;
+    }
+
+    .title-feature {
+        font-size: 4.96vw;
+        padding-top: 13.5px;
+    }
+
+    .card-mwa {
+        height: 34vw;
+        margin-bottom: 16px;
+        padding: 33.5px 3.9vw;
+        width: calc(50% - 16px);
+    }
+
+    .single-img {
+        max-width: 100%;
+    } 
+}
+
+@media (max-width: 576px) {
+    .search-bar-input {
+        width: 2rem;
+    }
+}
