@@ -2,6 +2,7 @@
 @import url(header.css);
 @import url(introduction.css);
 @import url(main-feature-MWA.css);
+@import url(main-feature-practice.css);
 
 /* 好不体面的个解法 */
 @media (max-width: 1400px) {
@@ -58,6 +59,29 @@
         padding: 0 40px;
     }
 } 
+
+@media (max-width: 1100px) {
+    .tree-flow-container {
+        height: auto;
+        overflow: visible;
+    }
+
+    .card-flow {
+        margin-top: 20px;
+        padding: 3.5vw 2.3vw;
+        position: static;
+        width: 100%;
+    }
+
+    .title-flow {
+        font-size: 26px;
+    }
+
+    .icon-flow {
+        height: calc(100% - 7vw);
+        width: calc(100% - 4.6vw);
+    }
+}
 
 @media (max-width: 996px) {
     .nav-item, .toggle-switch-2 {
@@ -175,10 +199,66 @@
     .single-img {
         max-width: 100%;
     } 
+
+    .icon-title {
+        font-size: 16px;
+        margin-top: 15px;
+    }
 }
 
 @media (max-width: 576px) {
     .search-bar-input {
         width: 2rem;
+    }
+}
+
+/* 又是一些不太体面的解法…… */
+@media (max-width: 1098px) {
+
+    .timeline-flow {
+        display: none;
+    }
+
+    .left-dot-state{
+        display: none;
+    }
+
+    .right-dot-state {
+        display: none;
+    }
+
+    .card-flow {
+        margin-top: 20px;
+        padding: 3.5vw 2.3vw;
+        position: static;
+        width: 100%;
+    }
+
+    .media-flow-card-style-1 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-2 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-3 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-4 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-5 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-6 {
+        top: calc(10px + 0vw);
+    }
+
+    .media-flow-card-style-7 {
+        top: calc(10px + 0vw);
     }
 }

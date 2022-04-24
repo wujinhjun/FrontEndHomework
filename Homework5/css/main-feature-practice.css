@@ -1,0 +1,117 @@
+@import url(main-feature-MWA.css);
+
+.tree-flow-container {
+    height: 1261px;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow-y: hidden;
+    position: relative;
+    width: 1021px;
+}
+
+.timeline-flow {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 1px;
+}
+
+.card-flow {
+    background: hsla(0,0%,100%,.1);
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 26px;
+    position: absolute;
+    width: 483px;
+    text-decoration: none;
+    border: 1px solid hsla(0,0%,100%,.2);
+    cursor: pointer;
+    transition: .3s;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.card-flow:hover {
+    background: rgba(78,202,255,.2);
+    color: #fff;
+    transition: .3s;
+}
+
+.title-flow {
+    display: inline-block;
+    line-height: 1.4;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.media-title-style {
+    margin-bottom: 16px;
+}
+
+.left-dot {
+    right: -41px;
+    height: 26px;
+    position: absolute;
+    top: 27px;
+    width: 60px;
+}
+
+.right-dot {
+    height: 26px;
+    position: absolute;
+    top: 27px;
+    width: 60px;
+    left: -41px;
+}
+
+.icon-flow {
+    height: 250px;
+    width: 431px;
+}
+
+
+/* 又是个不体面的解法 */
+.media-flow-card-style-1 {
+    left: 0px;
+    top: 53px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-2 {
+    right: 0px;
+    top: 120px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-3 {
+    left: 0px;
+    top: 423px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-4 {
+    right: 0px;
+    top: 490px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-5 {
+    left: 0px;
+    top: 545px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-6 {
+    right: 0px;
+    top: 616px;
+    text-decoration: none;
+}
+
+.media-flow-card-style-7 {
+    left: 0px;
+    top: 915px;
+    text-decoration: none;
+}

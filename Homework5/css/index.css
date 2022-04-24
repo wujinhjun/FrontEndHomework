@@ -169,14 +169,14 @@ h1, h2, h3, h4, h5, h6 {
     animation-duration: 50s;
     animation-timing-function: linear;
     animation-play-state: running;
-    animation-name: aa;
+    animation-name: spin-back;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%;
 }
 
-@keyframes aa {
+@keyframes spin-back {
     0% {
         transform: rotate(0)
     }
