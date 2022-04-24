@@ -1,0 +1,94 @@
+@import url(main-feature-MWA.css);
+
+.card-intro-project {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 55px;
+    width: 100%;
+}
+
+/* .right-pic {
+
+} */
+
+.left-pic {
+    flex-direction: row-reverse;
+}
+
+.left-pic .descr-title-content {
+    flex: 1;
+    margin-left: 3vw;
+}
+
+.descr-title-content {
+    max-width: 35%;
+}
+
+.right-pic .descr-title-content {
+    align-items: flex-end;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-right: 3vw;
+}
+
+.right-pic .title-describe {
+    text-align: right;
+    width: 100%;
+}
+
+.title-describe {
+    /* text-align: right; */
+    /* width: 100%; */
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.16;
+}
+
+a {
+    color: #2972b7;
+    text-decoration: none;
+}
+
+.see-details {
+    align-items: center;
+    border: 1px solid #00b3ff;
+    border-radius: 40px;
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    margin-top: 50px;
+    transition: .3s;
+    width: 130px;
+}
+
+.right-arrow {
+    stroke: #00b3ff;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.pic-window {
+    border: 1px solid #6f6f6f;
+    border-radius: 8px;
+    flex: 0 0 auto;
+    min-height: 295.8px;
+    min-width: 526px;
+    object-fit: contain;
+    width: 789px;
+}
+
+.single-img-box {
+    border: 1px solid #6f6f6f;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+    width: 100%;
+}
+
+.single-img-box .single-img {
+    max-width: 910px;
+    object-fit: contain;
+}

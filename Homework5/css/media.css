@@ -175,6 +175,36 @@
     } 
 }
 
+@media (max-width: 860px) {
+    .card-intro-project {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .descr-title-content {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .title-describe {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .see-details {
+        display: none;
+    }
+
+    .pic-window {
+        max-width: 100%;
+        width: 100%;
+        min-height: auto;
+        min-width: auto;
+    }
+}
+
+
 @media (max-width: 700px) {
     .background-modern {
         font-size: 2.48vw;
