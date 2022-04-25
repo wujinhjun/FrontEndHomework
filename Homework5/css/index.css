@@ -44,12 +44,11 @@ html {
     font: var(--ifm-font-size-base)/var(--ifm-line-height-base) var(--ifm-font-family-base);
 }
 
-.container,
 .row .col {
   padding: 0 var(--ifm-spacing-horizontal);
   width: 100%;
 }
-.row .col,
+
 img {
   max-width: 100%;
 }

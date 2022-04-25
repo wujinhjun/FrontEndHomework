@@ -1,0 +1,128 @@
+@import url(index.css);
+
+.root {
+    --ifm-spacing-horizontal: 1rem;
+}
+
+.the-footer {
+    background-color: #000;
+    color: #c9cdd4;
+    padding: 2rem 2rem;
+    line-height: 28.8px;
+}
+
+.footer-container {
+    padding: 0 1rem;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1140px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin:0 -1rem;
+}
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.row .col {
+    --ifm-col-width: 100%;
+    flex: 1 0;
+    margin-right: 0;
+}
+
+.footer-title {
+    color: #c9cdd4;  
+    font: 700 0.8rem var(--ifm-font-family-base);
+    margin-bottom: 1rem;
+    font-size: 14px;
+    line-height: 17.5px;
+}
+
+.footer-items {
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+ul {
+    margin: 0 0 1rem;
+    padding-left: 2rem;
+}
+
+ul ul {
+    margin: 0;
+}
+
+.footer-item {
+    margin-top: 0;
+}
+
+.footer-item-link {
+    font-size: 14px;
+    opacity: 90%;
+    color: #c9cdd4;
+    line-height: 2;
+}
+
+.footer-item-link:hover {
+    color: #00b3ff;
+    text-decoration: underline;
+} 
+
+.footer-items-icon {
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80px;
+}
+
+.footer-icon {
+    --webkit-filter: grayscale(100%);
+    cursor: pointer;
+    filter: grayscale(100%);
+    margin-bottom: 17px;
+    position: relative;
+}
+
+.footer-icon:hover {
+    filter: grayscale(0);
+}
+
+.wrap-er-code {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    display: flex;
+    height: 120px;
+    justify-content: center;
+    max-width: none;
+    position: absolute;
+    top: -123px;
+    width: 120px;
+}
+.wrap-er-code {
+    display: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-bottom {
+    margin-bottom: 0.5rem!important;
+}
+
+.footer-logo {
+    margin-top: 1rem;
+    max-width: 218px;
+    width: 218px;
+    display: initial;
+}

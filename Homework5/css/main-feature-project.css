@@ -63,6 +63,13 @@ a {
     width: 130px;
 }
 
+.see-details:hover {
+    border: 1px solid #84daff;
+    color: #84daff;
+    text-decoration: none;
+    transition: .3s;
+}
+
 .right-arrow {
     stroke: #00b3ff;
     display: inline-block;

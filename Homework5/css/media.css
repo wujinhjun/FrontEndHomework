@@ -3,6 +3,8 @@
 @import url(introduction.css);
 @import url(main-feature-MWA.css);
 @import url(main-feature-practice.css);
+@import url(the-quick-start.css);
+@import url(footer.css);
 
 /* 好不体面的个解法 */
 @media (max-width: 1400px) {
@@ -195,6 +197,7 @@
     .see-details {
         display: none;
     }
+
 
     .pic-window {
         max-width: 100%;

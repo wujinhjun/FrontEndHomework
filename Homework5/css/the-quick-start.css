@@ -1,0 +1,36 @@
+.quick-start {
+    align-items: center;
+    background-image: url(https://lf3-static.bytednsdoc.com/obj/eden-cn/aphqeh7uhohpquloj/modern-js/quick-start-card-bg.png);
+    background-position: 50%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 181px;
+    justify-content: center;
+    width: 100%;
+}
+
+.title-qs {
+    color: #fff;
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.quick-start-button {
+    color: #000;
+    text-decoration: none;
+    align-items: center;
+    background: #4ecaff;
+    border-radius: 39px;
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    margin-top: 19px;
+    width: 132px;
+}
+
+.quick-start-button:hover {
+    color: #000;
+    text-decoration: none;
+}
