@@ -17,6 +17,7 @@ function package(message)
         }
     }
 
+    // 封包
     let theMessage = Buffer.alloc(dataLength);
     let numTemp = 0;
     
@@ -34,26 +35,3 @@ function package(message)
 }
 
 module.exports = {package};
-// let a = package('hello world, @wujinhjun');
-// console.log(a);
-// console.log(a.toString('utf-8'));
-
-// const buffer = Buffer.alloc(3);
-// console.log(buffer);
-
-// buffer[0] = 0x23;
-// buffer[1] = 0x24;
-// buffer[2] = 0x2F;
-
-// // console.log(buffer);
-// // console.log(buffer.toString('utf-8'));
-// // console.log('hello');
-
-// console.log(Buffer.from('@', 'utf-8'));
-// console.log(Buffer.from('^', 'utf-8'));
-// console.log(Buffer.from('/', 'utf-8'));
-// console.log(Buffer.from('%', 'utf-8'));
-
-// let buffer1 = Buffer.allocUnsafe(3);
-
-// console.log(buffer1);
