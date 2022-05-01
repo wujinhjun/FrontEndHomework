@@ -1,11 +1,26 @@
-const comProt = require('./myProtocol/newProtocol');
+const net = require('net');
+const {Parser} = require('./myProtocol/theProtocol');
+const {package} = require('./myProtocol/package');
 
-const server = comProt.createServer((wuProt) => {
-    wuProt.on('data', (data) => {
-        console.log('服务器收到:', data.toString('utf-8'));
-        wuProt.end('道友留步');
+const server = net.createServer((socket) => {
+    const parser = new Parser();
+    socket.on('data', (data) => {
+        parser.processMessage(data);
+        if (parser.judgeCompletion()) {
+            console.log('服务器收到:', parser.reduMessage());
+            socket.end(package('hello, the client'))
+        } else {
+            console.log("I can't connect client……");
+        }
     });
-});
 
-// 启动服务器
+    socket.on('close', () => {
+        console.log('server close');
+    })
+
+    socket.on('error', () => {
+        console.log('error');
+    })
+})
+
 server.listen(8080);
