@@ -294,6 +294,10 @@
     .search-bar-input {
         width: 2rem;
     }
+
+    .left-card {
+        margin-left: -34px;
+    }
 }
 
 /* 又是一些不太体面的解法…… */

@@ -123,7 +123,8 @@
 
 .wrapper-card {
     margin-bottom: 0;
-    margin-left: 0;
+    margin-left: 0px;
+    margin-right: 18px;
     width: 100%;
 }
 
