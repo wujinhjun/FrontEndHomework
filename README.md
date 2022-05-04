@@ -17,3 +17,5 @@ It is worth mentioning that my English is not good, so readmes may have some gra
 [homework4: a protocol based on node-js](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework4)
 
 [homework5: the mobile layout by HTML+CSS](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework5)
+
+[homework6: front-end performance optimization](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework5)
