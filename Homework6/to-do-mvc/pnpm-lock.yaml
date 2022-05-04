@@ -5,11 +5,14 @@ specifiers:
   '@modern-js/plugin-jarvis': ^1.0.0
   '@modern-js/runtime': ^1.0.0
   '@modern-js/tsconfig': ^1.0.0
+  '@types/nanoid': ^3.0.0
   '@types/node': ^14
   '@types/react': ^17
   '@types/react-dom': ^17
+  classnames: ^2.3.1
   del-cli: ^4.0.1
   lint-staged: ^11.2.6
+  nanoid: ^3.3.4
   prettier: ^2.6.2
   react: ^17.0.1
   react-dom: ^17.0.1
@@ -17,6 +20,8 @@ specifiers:
 
 dependencies:
   '@modern-js/runtime': 1.2.7_react-dom@17.0.2+react@17.0.2
+  classnames: 2.3.1
+  nanoid: 3.3.4
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
 
@@ -24,6 +29,7 @@ devDependencies:
   '@modern-js/app-tools': 1.6.1_typescript@4.6.4
   '@modern-js/plugin-jarvis': 1.2.8_typescript@4.6.4
   '@modern-js/tsconfig': 1.2.0
+  '@types/nanoid': 3.0.0
   '@types/node': 14.18.16
   '@types/react': 17.0.44
   '@types/react-dom': 17.0.16
@@ -2572,6 +2578,13 @@ packages:
       '@types/node': 14.18.16
     dev: true
 
+  /@types/nanoid/3.0.0:
+    resolution: {integrity: sha512-UXitWSmXCwhDmAKe7D3hNQtQaHeHt5L8LO1CB8GF8jlYVzOv5cBWDNqiJ+oPEWrWei3i3dkZtHY/bUtd0R/uOQ==}
+    deprecated: This is a stub types definition. nanoid provides its own type definitions, so you do not need this installed.
+    dependencies:
+      nanoid: 3.3.4
+    dev: true
+
   /@types/node/14.18.16:
     resolution: {integrity: sha512-X3bUMdK/VmvrWdoTkz+VCn6nwKwrKCFTHtqwBIaQJNx4RUIBBUFXM00bqPz/DsDd+Icjmzm6/tyYZzeGVqb6/Q==}
     dev: true
@@ -3615,6 +3628,10 @@ packages:
       inherits: 2.0.4
       safe-buffer: 5.2.1
     dev: true
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: false
 
   /clean-css/4.2.4:
     resolution: {integrity: sha512-EJUDT7nDVFDvaQgAo2G/PJvxmp1o/c6iXLbswsBbUFXi1Nr+AjA2cKmfbKDMjMvzEe75g3P6JkaDDAKk96A85A==}
@@ -6941,7 +6958,6 @@ packages:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
