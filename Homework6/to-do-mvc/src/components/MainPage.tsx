@@ -13,7 +13,7 @@ interface Props {
   onDestroy: (todo: ToDoItem) => void;
 }
 
-export function MainPage(props: Props) {
+export default function MainPage(props: Props) {
   const {
     todos,
     editing,

@@ -1,13 +1,21 @@
-import React, { ChangeEvent, useState, KeyboardEvent, useEffect } from 'react';
+import React, {
+  ChangeEvent,
+  useState,
+  KeyboardEvent,
+  useEffect,
+  lazy,
+} from 'react';
 import { useLocation } from '@modern-js/runtime/router';
-
-import { HeaderTitle } from './components/HeaderTitle';
-import { MainPage } from './components/MainPage';
-import { FooterBar, NowShowing } from './components/FooterBar';
+import { NowShowing } from './components/FooterBar';
 import { ToDoItem, TodoModel } from './models/TodoModel';
+import { FooterTips } from './components/FooterTips';
 
 import './folderForCss/base.css';
 import './folderForCss/index.css';
+
+const HeaderTitle = lazy(() => import('./components/HeaderTitle'));
+const MainPage = lazy(() => import('./components/MainPage'));
+const FooterBar = lazy(() => import('./components/FooterBar'));
 
 const keyCodes = {
   Enter: 'Enter',
@@ -105,52 +113,38 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      <section className="todoapp">
-        <HeaderTitle
-          newToDo={newToDo}
-          handleNewToDoKeyDown={handleNewToDoKeyDown}
-          handleNewToDoChange={handleNewToDoChange}
-        />
-        {Boolean(model.todos.length) && (
-          <React.Fragment>
-            <MainPage
-              editing={editing}
-              todos={showingToDos}
-              onToggle={onToggle}
-              onToggleAll={onToggleAll}
-              onDestroy={onDestory}
-              onEdit={onEdit}
-              onSave={onSave}
-              onCancel={onCancel}
-            />
-            <FooterBar
-              activeToDoCount={activeToDoCount}
-              nowShowing={nowShowing}
-              onClearCompleted={onClearCompleted}
-              hasCompletedToDos={completedToDoCount !== 0}
-            />
-          </React.Fragment>
-        )}
-      </section>
-      <footer className="info">
-        <div className="tips">
-          <p>Double-click to edit a todo</p>
-        </div>
-        <p>A try for learing the react</p>
-        <p>
-          Created by the bigwig{' '}
-          <a href="http://github.com/petehunt/">petehunt</a>
-        </p>
-        <p>
-          Maded by a designer{' '}
-          <a href="https://github.com/wujinhjun">wujinhjun</a>
-        </p>
-        <p>
-          Part of <a href="http://todomvc.com">TodoMVC</a>
-        </p>
-      </footer>
-    </React.Fragment>
+    <React.Suspense fallback={<div>加载中……</div>}>
+      <React.Fragment>
+        <section className="todoapp">
+          <HeaderTitle
+            newToDo={newToDo}
+            handleNewToDoKeyDown={handleNewToDoKeyDown}
+            handleNewToDoChange={handleNewToDoChange}
+          />
+          {Boolean(model.todos.length) && (
+            <React.Fragment>
+              <MainPage
+                editing={editing}
+                todos={showingToDos}
+                onToggle={onToggle}
+                onToggleAll={onToggleAll}
+                onDestroy={onDestory}
+                onEdit={onEdit}
+                onSave={onSave}
+                onCancel={onCancel}
+              />
+              <FooterBar
+                activeToDoCount={activeToDoCount}
+                nowShowing={nowShowing}
+                onClearCompleted={onClearCompleted}
+                hasCompletedToDos={completedToDoCount !== 0}
+              />
+            </React.Fragment>
+          )}
+        </section>
+        <FooterTips />
+      </React.Fragment>
+    </React.Suspense>
   );
 }
 

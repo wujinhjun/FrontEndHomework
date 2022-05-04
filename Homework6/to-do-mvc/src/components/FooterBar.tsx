@@ -11,7 +11,7 @@ interface Props {
 
 export type NowShowing = 'all' | 'active' | 'completed';
 
-export function FooterBar(props: Props) {
+export default function FooterBar(props: Props) {
   const { activeToDoCount, nowShowing, hasCompletedToDos, onClearCompleted } =
     props;
 

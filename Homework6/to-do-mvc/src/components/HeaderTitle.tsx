@@ -6,7 +6,7 @@ interface Props {
   handleNewToDoChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function HeaderTitle(props: Props) {
+export default function HeaderTitle(props: Props) {
   const { newToDo, handleNewToDoKeyDown, handleNewToDoChange } = props;
   return (
     <header className="header">
