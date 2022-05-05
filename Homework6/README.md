@@ -4,7 +4,7 @@ a homework based on front-end performance optimization
 
 But, it is a pity that limited by my front-end level, I can't even implement the function very well. So I can't achieve performance optimization.
 
-Therefore, I can only achieve a little bit base on a [to-do-mvc](https://github.com/wujinhjun/To-Do-MVC-react-try) (this is last edition)
+Therefore, I can only achieve a little bit base on a [to-do-mvc](https://github.com/wujinhjun/To-Do-MVC-react-try) (this is last edition). And this is [now edition](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework6/to-do-mvc).
 
  1. I used [the clean-css](https://www.cleancss.com/css-minify/) to minify my css.
  2. I used the `<React-Fragement></React-Fragement>` instead of `<div></div>`.
