@@ -1,4 +1,5 @@
 class Player {
+    // 最开始写的一个class，当时忘了向量这个问题，哽咽，等有空了我重构
 
     // 构造函数，输入位置，速度，
     // 大小， 攻击范围？ 色彩：身体、眼睛、武器；视野
@@ -39,13 +40,36 @@ class Player {
         // background(back);
     }
 
+    // 一个函数用于暴露出玩家所在
+    exposeLoc = () => {
+        let location = createVector(this.x, this.y);
+        
+        return location;
+    }
+
+    // 一个函数用于计算鼠标与中心点的向量
+    caluVector = () => {
+        let mouse = createVector(mouseX - this.x, mouseY - this.y);
+        mouse.normalize();
+        
+        return mouse;
+    }
+
+    // 暴露出枪的位置
+    caluGun = () => {
+        let mouse = this.caluVector();
+        mouse.mult(45);
+        let loc = this.exposeLoc();
+        let theGun = loc.add(mouse);
+
+        return theGun;
+    }
+
     caluAngle = () => {
-        // translate(this.x, this.y);
-        let directVector = createVector(mouseX - this.x, mouseY - this.y);
-        directVector.normalize();
-        directVector.mult(this.field);
-        var thePlaneVector = createVector(50, 0);
+        let directVector = this.caluVector();
+        let thePlaneVector = createVector(50, 0);
         let angleMouse = thePlaneVector.angleBetween(directVector);
+
         return angleMouse;
     }
 
@@ -57,15 +81,15 @@ class Player {
             spotRectHeight = 3;
         }
         push();
-        noStroke();
-        translate(mouseX, mouseY);
-        fill(0);
-        rectMode(CENTER);
-        rect(spotRectCenter, 0, spotRectWidth, spotRectHeight);
-        rect(-spotRectCenter, 0, spotRectWidth, spotRectHeight);
-        rect(0, spotRectCenter, spotRectHeight, spotRectWidth);
-        rect(0, -spotRectCenter, spotRectHeight, spotRectWidth);
-        ellipse(0, 0, spotRectHeight*2);
+            noStroke();
+            translate(mouseX, mouseY);
+            fill(0);
+            rectMode(CENTER);
+            rect(spotRectCenter, 0, spotRectWidth, spotRectHeight);
+            rect(-spotRectCenter, 0, spotRectWidth, spotRectHeight);
+            rect(0, spotRectCenter, spotRectHeight, spotRectWidth);
+            rect(0, -spotRectCenter, spotRectHeight, spotRectWidth);
+            ellipse(0, 0, spotRectHeight*2);
         pop();
     }
 
@@ -82,7 +106,9 @@ class Player {
             fill(this.colorBody);
             ellipse(0, 0, this.diameter, this.diameter);
             if (mouseIsPressed) {
-                rect(21, 0, 6, 20, 3);
+                if (mouseButton === LEFT) {
+                    rect(21, 0, 6, 20, 3);
+                }
             }else {
                 rect(25, 0, 6, 20, 3);
             }
@@ -115,10 +141,6 @@ class Player {
         rect(distLeftWidth, distTopHeight + 2 * this.viewSize, lengthMap, lengthMap);
         pop();
     }
-    
-    // weapon() {
-    //     var gun = new Gun(this.x + 25, this.y, 30);
-    // }
 
     run = () => {
         
@@ -127,14 +149,7 @@ class Player {
         borderDraw(800);
         this.move();
         // this.gun();
-        this.viewPort();
+        // this.viewPort();
         // gun.run();
-    }
-
-    // 一个函数用于暴露出坐标所在
-    exposeLoc = () => {
-        let location = createVector(this.x, this.y);
-        
-        return location;
     }
 }
