@@ -10,7 +10,7 @@ function borderDraw(size) {
 }
 
 function viewPort() {
-    let playerLocation = player.exposeLoc();
+    let playerLocation = createVector(player.location.x, player.location.y);
     let viewSize = 200;
     push();
         let distLeftWidth = playerLocation.x - viewSize;

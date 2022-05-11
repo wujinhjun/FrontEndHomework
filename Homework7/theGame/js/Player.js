@@ -5,9 +5,11 @@ class Player {
     // 大小， 攻击范围？ 色彩：身体、眼睛、武器；视野
     // 其他属性：攻击范围，防御力， 血量， 初始等级……
     constructor(x, y, speed) {
-        this.x = x;
+        this.x = x + 15;
         this.y = y;
-        this.location = createVector(x, y);
+        this.w = 60;
+        this.h = 30;
+        this.location = createVector(x + 20, y);
         this.speed = speed;
         this.diameter = 30;
         this.radius = this.diameter / 2;
@@ -16,40 +18,77 @@ class Player {
         this.colorEye = '#3184E4';
         this.colorWeapon = '#000000';
         this.viewSize = 200;
+
+        this.ifHit = false;
+        this.lifeLength = 100;
+        this.id = "player";
     }
+
+    // 检测碰撞
+    setStageHit = (value) => {
+        this.ifHit = value;
+    }
+
+    // 
+
+    // 很遗憾，发现我的这个并不好用
+    // 距离检测
+    intersects = (other) => {
+        let vectorTemp = createVector(other.x - this.location.x, other.y - this.location.y);
+        let vectorVer = createVector(0, -this.h);
+        let angle = vectorTemp.angleBetween(vectorVer);
+        let d = dist(this.location.x, this.location.y, other.location.x, other.location.y);
+
+        let dTemp = Math.max((this.w / 2) * cos(angle), this.h / 2)
+        let distTemp = other.r + dTemp;
+        // console.log("yes intersect");
+        // if (d < distTemp) {
+        //     // console.log('no hit');
+        //     return false;
+        // } else {
+        //     // console.log('hit');
+        //     return true;
+        // }
+        return !(d < distTemp);
+    }
+    
+    // // 改变状态
+    // setStageLiving = () => {
+    //     this.isDead = true;
+    // }
 
     move = () => {
-        if (keyIsDown(65)) {
-            if (this.x - this.radius > 0){
-                this.x -= this.speed;
+        // if (!this.ifHit) {
+            if (keyIsDown(65)) {
+                if (this.location.x - this.radius > 0){
+                    this.location.x -= this.speed;
+                }
+            } else if (keyIsDown(68)) {
+                if (this.location.x + this.radius < width){
+                    this.location.x += this.speed;
+                }
+            } else if (keyIsDown(87)) {
+                if (this.location.y - this.radius > 0){
+                    this.location.y -= this.speed;
+                }
+            } else if (keyIsDown(83)) {
+                if (this.location.y + this.radius < height){
+                    this.location.y += this.speed;
+                }
             }
-        } else if (keyIsDown(68)) {
-            if (this.x + this.radius < width){
-                this.x += this.speed;
-            }
-        } else if (keyIsDown(87)) {
-            if (this.y - this.radius > 0){
-                this.y -= this.speed;
-            }
-        } else if (keyIsDown(83)) {
-            if (this.y + this.radius < height){
-                this.y += this.speed;
-            }
-        }
-
-        // background(back);
+        // }
     }
 
-    // 一个函数用于暴露出玩家所在
+    // 一个函数用于暴露出玩家所在^终于理解为什么会有屎山代码了，我也想知道我为什么会写出这种代码
     exposeLoc = () => {
-        let location = createVector(this.x, this.y);
+        let location = createVector(this.location.x, this.location.y);
         
         return location;
     }
 
     // 一个函数用于计算鼠标与中心点的向量
     caluVector = () => {
-        let mouse = createVector(mouseX - this.x, mouseY - this.y);
+        let mouse = createVector(mouseX - this.location.x, mouseY - this.location.y);
         mouse.normalize();
         
         return mouse;
@@ -94,16 +133,21 @@ class Player {
     }
 
     displayPlayer = () => {
+        // line(this.location.x, this.location.y, mouseX, mouseY);
         push();
             noStroke();
-            translate(this.x, this.y);
+            translate(this.location.x, this.location.y);
             // translate(mapSize / 2, mapSize / 2);
             var angleMouse = this.caluAngle();
             rotate(angleMouse);
             rectMode(CENTER);
             fill(this.colorWeapon);
             rect(23, 0, 45, 6, 3);
-            fill(this.colorBody);
+            if (this.ifHit) {
+                fill(255, 0, 0);
+            } else {
+                fill(this.colorBody);
+            }
             ellipse(0, 0, this.diameter, this.diameter);
             if (mouseIsPressed) {
                 if (mouseButton === LEFT) {
@@ -118,38 +162,9 @@ class Player {
         pop();
     }
 
-    // 定义视野
-    viewPort = () => {
-        push();
-
-        let distLeftWidth = this.x - this.viewSize;
-
-        let distRightWidth = mapSize - this.viewSize - this.x ;
-
-        let distTopHeight = this.y - this.viewSize;
-
-        let distBottomHeight = mapSize - this.viewSize - this.y;
-
-        let lengthMap = mapSize;
-        // let lengthMap = mapSize;
-
-        noStroke();
-        fill(100, 100, 100);
-        rect(0, 0, distLeftWidth, lengthMap);
-        rect(distLeftWidth, 0, 2 * this.viewSize + distRightWidth, distTopHeight);
-        rect(distLeftWidth + 2 * this.viewSize, 0, distRightWidth, lengthMap);
-        rect(distLeftWidth, distTopHeight + 2 * this.viewSize, lengthMap, lengthMap);
-        pop();
-    }
-
     run = () => {
-        
         this.displayTargetSpot();
         this.displayPlayer();
-        borderDraw(800);
         this.move();
-        // this.gun();
-        // this.viewPort();
-        // gun.run();
     }
 }
