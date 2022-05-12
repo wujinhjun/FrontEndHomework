@@ -1,23 +1,28 @@
 /*
     5.11: 子弹还不能攻击，实现了简单的物理碰撞检测 
+    5.12.12: 实现了基本的怪物击杀
 */
 
 new p5();
 
-let mapSize = 800;
 var canvasSize = 800;
+let mapSize = 800;
 var player = new Player(mapSize/2, mapSize/2, 2);
 // let part
 var propertys = [];
 var enemys = [];
 var bullets = [];
 var particles = [];
+var back
+var gameStart = false;
+var stage;
 
 function setup() {
     // 画布中心： 
 	createCanvas(canvasSize, canvasSize);
     back = loadImage('./pic/background.png');
     smooth();
+    stage = 1;
 
     for (let i = 0; i < 10 ; i++) {
         propertys[i] = new Property(random(width), random(height));
@@ -26,14 +31,57 @@ function setup() {
     for (let i = 0; i < 10; i++) {
         enemys[i] = new Enemy(random(width), random(height), 1);
     }
+    
 }
 
 function draw() {
     background(back);
+    
+    // drawGui();
+    // gameing();
 
+    if (stage === 1) {
+        homePage();
+    }
+    if (stage === 2) {
+        if (gameStart) {
+            gameing();
+            stateBar();
+        }
+    }
+    if (stage === 3) {
+        mapDisplay();
+    }
+    if (stage === 4) {
+        skinSelect();
+    }
+    // skin();
+    
+}
+
+function mouseClicked() {
+    if (gameStart) {
+        shootGun();
+        console.log(enemys);
+    }
+}
+
+function manageEnemys() {
+    let sumTemp = enemys.length;
+    if (sumTemp > 0) {
+        for (let i = sumTemp - 1; i >= 0; i--) {
+            let enemyTemp = enemys[i];
+            enemyTemp.update();
+            if (enemyTemp.isDis()) {
+                enemys.splice(i, 1);
+            }
+        }
+    }
+}
+
+function gameing() {
     let boundary = new Reactangle(mapSize / 2, mapSize / 2, mapSize, mapSize);
     let qTree = new QuadTree(boundary, 4);
-
 
     // 箱子
     for(let p of propertys) {
@@ -111,38 +159,42 @@ function draw() {
             }
         }
     }
-    manageEnemys();
     // // gun.run();
     // angle = player.caluAngle();
 
-    player.run();
+    
     manageShot();
+    manageEnemys();
     
     particles = enemys.concat(bullets);
     
-
+    player.run();
     borderDraw(mapSize);
-    // viewPort();
+    viewPort();
 }
 
-function mouseClicked() {
-    shootGun();
-    console.log(enemys);
+function stateBar() {
+    push();
+        noStroke();
+        fill(111, 80);
+        rect(0, 0, 800, 145);
+        fill(49, 132, 228, 200);
+        rect(25, 10, 125, 125, 20);
+
+        fill('#00FF85');
+        rect(185, 10, 300, 50, 15);
+        fill('#C9E379');
+        rect(185, 85, 300, 50, 15);
+        textAlign(LEFT, CENTER);
+        textSize(40);
+        fill('#000000')
+        text('金钱：' + player.money, 515, 35);
+        text('波数：', 515, 110);
+    pop();
 }
 
-function manageHit() {
-    
-}
-
-function manageEnemys() {
-    let sumTemp = enemys.length;
-    if (sumTemp > 0) {
-        for (let i = sumTemp - 1; i >= 0; i--) {
-            let enemyTemp = enemys[i];
-            enemyTemp.update();
-            if (enemyTemp.isDis()) {
-                enemys.splice(i, 1);
-            }
-        }
-    }
+function quitBoard() {
+    push();
+        rect();
+    pop();
 }

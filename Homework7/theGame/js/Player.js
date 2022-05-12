@@ -21,6 +21,7 @@ class Player {
 
         this.ifHit = false;
         this.lifeLength = 100;
+        this.money = 0;
         this.id = "player";
     }
 
