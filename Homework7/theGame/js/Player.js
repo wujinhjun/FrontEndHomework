@@ -29,7 +29,17 @@ class Player {
         this.ifHit = value;
     }
 
-    // 
+    setDisBet = (other) => {
+        // translate(this.location.x, this.location.y);
+        // other.location.setMag(45);
+        let distanceTemp =  dist(this.location.x, this.location.y, other.location.x, other.location.y);
+        let dis = createVector(this.location.x - other.location.x, this.location.y - other.location.y);
+        dis.normalize();
+        dis.mult(-0.5);
+        if (distanceTemp < 60) {
+            other.location.add(dis);
+        }
+    }
 
     // 很遗憾，发现我的这个并不好用
     // 距离检测

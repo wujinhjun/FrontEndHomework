@@ -11,6 +11,22 @@ class Property {
         this.id = 'property';
     }
 
+    // 判断距离
+    intersects = (other) => {
+        let d = dist(this.location.x, this.location.y, other.location.x, other.location.y);
+        return (d < this.r + other.r);
+    }
+
+    //判断子弹接触否 
+    setBulletHit = () => {
+        this.isDead = true;
+    }
+
+    // // 检测碰撞
+    // setStageHit = (value) => {
+    //     this.ifHit = value;
+    //     // console.log('hit');
+    // }
     // 检测碰撞
     setStageHit = (value) => {
         this.ifHit = value;

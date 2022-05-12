@@ -1,7 +1,5 @@
 /*
-    觉得可能有写点东西做记录的必要了
-    这个作业其实更多的是我之前一个未完成的demo的延续，那时的我oop都不懂，就跑去做3D游戏，自然是死的非常惨……
-    这次用2D的，第一感觉so easy。然而上手之后发现p5js和processing之间还是有很大差距的（js和java之间本来也有很大差距
+    5.11: 子弹还不能攻击，实现了简单的物理碰撞检测 
 */
 
 new p5();
@@ -13,6 +11,7 @@ var player = new Player(mapSize/2, mapSize/2, 2);
 var propertys = [];
 var enemys = [];
 var bullets = [];
+var particles = [];
 
 function setup() {
     // 画布中心： 
@@ -49,8 +48,10 @@ function draw() {
         let point = new Point(e.location.x, e.location.y, e);
         qTree.insert(point);
 
-        e.update();
+        // e.update();
     }
+
+    particles = enemys.concat(bullets);
 
     player.setStageHit(false);
 
@@ -68,20 +69,56 @@ function draw() {
                 // player.setStageHit(true);
             } else if (other.id === 'enemy') {
                 other.setStageHit(true);
+                other.setStageAttack(true);
+                player.setDisBet(other);
                 // console.log('enemy');
             }
             
         }
-        // if (collideRectCircle(player.location.x, player.location.y, player.w, player.h, point.x, point.y, point.r)) {
-        //     []
-        // }
     }
+
+
+    // 对子弹来说，判断是否接近，接近后全部崩解
+    // 对怪物来说，判断是否接近，如果是子弹，则自己受伤，如果是道具，则开始鬼畜
+    // 对箱子来说，没有必要
+    for (let p of particles) {
+        let range = new Circle(p.location.x, p.location.y, p.r * 2);
+        let points = qTree.query(range);
+        for (let point of points) {
+            let other = point.userData;
+            if (p !== other && p.intersects(other)) {
+                if (p.id === 'bullets' && p.id !== other.id) {
+                    other.setBulletHit(true);
+                    p.setStageLiving();
+                    // p.update();
+                    console.log(p.ifDead);
+                    // console.log('bullet1');
+                } else if (p.id === 'enemy') {
+                    if (other.id === 'bullets') {
+                        p.setBulletHit(true);
+                        other.setStageLiving();
+                        console.log('bullet2');
+                    } else if (other.id === 'enemy') {
+                        p.setStageHit(true);
+                        p.setDisBet(other);
+                        other.setStageHit(true);
+                        // let dis = createVector(this.location.x - other.location.x, this.location.y - other.location.y);
+                        // dis.setMag(2 * this.r);
+                    } else if (other.id === 'property') {
+                        p.setStageHit(true);
+                    }
+                }
+            }
+        }
+    }
+    manageEnemys();
     // // gun.run();
     // angle = player.caluAngle();
 
     player.run();
     manageShot();
-
+    
+    particles = enemys.concat(bullets);
     
 
     borderDraw(mapSize);
@@ -90,9 +127,22 @@ function draw() {
 
 function mouseClicked() {
     shootGun();
-    // console.log(emenys);
+    console.log(enemys);
 }
 
 function manageHit() {
     
+}
+
+function manageEnemys() {
+    let sumTemp = enemys.length;
+    if (sumTemp > 0) {
+        for (let i = sumTemp - 1; i >= 0; i--) {
+            let enemyTemp = enemys[i];
+            enemyTemp.update();
+            if (enemyTemp.isDis()) {
+                enemys.splice(i, 1);
+            }
+        }
+    }
 }

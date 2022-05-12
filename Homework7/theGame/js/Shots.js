@@ -8,7 +8,9 @@ class Shots {
         this.ifDead = false;
         this.stillSpan = 255;
         this.ifDis = false;
-        this.bulletSize = 10
+        this.bulletSize = 10;
+        this.r = this.bulletSize;
+        this.id = 'bullets';
 
         this.xOffset = random(-5, 5);
         this.yOffset = random(-5, 5);
@@ -17,6 +19,12 @@ class Shots {
     // 改变状态
     setStageLiving = () => {
         this.ifDead = true;
+    }
+
+    // 距离检测
+    intersects = (other) => {
+        let d = dist(this.location.x, this.location.y, other.location.x, other.location.y);
+        return (d < this.r + other.r);
     }
 
     // 子弹移动
@@ -37,8 +45,6 @@ class Shots {
     checkEdge = () => {
         if (this.location.x >= mapSize - this.bulletSize || this.location.x <= this.bulletSize || this.location.y >= mapSize - this.bulletSize || this.location.y <= this.bulletSize) {
             this.ifDead = true;
-        } else {
-            this.ifDead = false;
         }
     }
 
@@ -56,7 +62,7 @@ class Shots {
                 this.stillSpan -= 5;
                 fill(0, 255, 128, this.stillSpan);
                 for (let i = -1; i <= 1; i++) {
-                    ellipse(this.location.x + Math.pow(-1, i) * this.yOffset, this.location.y + Math.pow(-1, i) * this.yOffset, 5);
+                    ellipse(this.location.x + Math.pow(-1, i) * this.yOffset, this.location.y + Math.pow(-1, i) * this.yOffset, 5 + this.xOffset, 5 + this.yOffset);
                 }
             } else {
                 // fill(255, 255, 255,);
