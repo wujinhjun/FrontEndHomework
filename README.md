@@ -19,3 +19,5 @@ It is worth mentioning that my English is not good, so readmes may have some gra
 [homework5: the mobile layout by HTML+CSS](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework5)
 
 [homework6: front-end performance optimization](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework6)
+
+[homework7: a game based on p5js](https://github.com/wujinhjun/FrontEndHomework/tree/main/Homework7)

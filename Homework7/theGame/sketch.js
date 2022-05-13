@@ -324,7 +324,7 @@ function quitBoard() {
         textSize(48);
         fill(0)
         let str = '游戏暂停'
-        if (player.ifDead) {
+        if (player.lifeLength <= 0) {
             str = '游戏结束';
         }
         text(str, 79 + 225, 60 + 225);
