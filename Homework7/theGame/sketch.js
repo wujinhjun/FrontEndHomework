@@ -310,7 +310,7 @@ function stateBar() {
         textAlign(LEFT, CENTER);
         textSize(40);
         fill('#000000')
-        text('金钱：' + player.money, 515, 35);
+        text('光点：' + player.money, 515, 35);
         text('波数：' + timesNum, 515, 110);
     pop();
 }
