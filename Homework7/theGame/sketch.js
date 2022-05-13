@@ -1,6 +1,8 @@
 /*
     5.11: 子弹还不能攻击，实现了简单的物理碰撞检测 
     5.12.12: 实现了基本的怪物击杀
+    5.12.23: 实现了基本的界面
+    5.13: 对细节进行了优化，增加了换弹、
 */
 
 new p5();
@@ -17,6 +19,7 @@ var back;
 var gameStart = false;
 var gameSuspend = false;
 var stage;
+var timesNum = 1;
 
 function setup() {
     // 画布中心： 
@@ -100,7 +103,7 @@ function keyTyped() {
     }
     if (key === 'c') {
         if (player.money >= 1000) {
-            player.bulletsNum = 100;
+            player.lifeLength = 100;
             player.money -= 1000;
         }
     }
@@ -220,6 +223,7 @@ function gameing() {
 // 生成敌人
 function makeEnemy() {
     if (enemys.length <= 0) {
+        timesNum += 1;
         while(enemys.length <= 6) {
             let locTemp = createVector(random(width), random(height));
             let disTemp = locTemp.dist(player.location);
@@ -270,18 +274,27 @@ function stateBar() {
         fill(49, 132, 228, 200);
         rect(25, 10, 125, 125, 20);
 
+        // 生命值
         push();
             noFill();
             // fill(0, 255, 100);
             stroke(200);
             rect(185, 10, 300, 50, 15);
         pop();
-        fill(0, 255, 133, 200);
+        if (player.lifeLength >= 70) {
+            fill(0, 255, 133, 200);
+        } else if (player.lifeLength >= 30) {
+            fill(255, 162, 23, 200);
+        } else {
+            fill(255, 0, 0, 200);
+        }
+        
         let lifeLength = map(player.lifeLength, 0, 100, 0, 300);
         if (lifeLength >= 0) {
             rect(185, 10, lifeLength, 50, 15);
         }
 
+        // 子弹条
         push();
             noFill();
             // fill(0, 255, 100);
@@ -289,16 +302,16 @@ function stateBar() {
             rect(185, 85, 300, 50, 15);
         pop();
         fill(201, 227, 121, 200);
-        let bulletsLength = map(player.bulletsNum, 0, 20, 0, 300);
+        let bulletsNum = map(player.bulletsNum, 0, 20, 0, 300);
         if (lifeLength >= 0) {
-            rect(185, 85, bulletsLength, 50, 15);
+            rect(185, 85, bulletsNum, 50, 15);
         }
         // rect(185, 85, 300, 50, 15);
         textAlign(LEFT, CENTER);
         textSize(40);
         fill('#000000')
         text('金钱：' + player.money, 515, 35);
-        text('波数：', 515, 110);
+        text('波数：' + timesNum, 515, 110);
     pop();
 }
 
@@ -310,7 +323,11 @@ function quitBoard() {
         textAlign(LEFT, TOP);
         textSize(48);
         fill(0)
-        text('游戏暂停', 79 + 225, 60 + 225);
+        let str = '游戏暂停'
+        if (player.ifDead) {
+            str = '游戏结束';
+        }
+        text(str, 79 + 225, 60 + 225);
         let quit = new Button(29 + 60 + 225, 225 + 40 + 225, 120, 80);
         let last = new Button(200 + 60 + 225, 225 + 40 + 225, 120, 80);
         quit.update('退出', 40);
