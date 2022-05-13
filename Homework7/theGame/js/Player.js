@@ -21,6 +21,7 @@ class Player {
 
         this.ifHit = false;
         this.lifeLength = 100;
+        this.bulletsNum = 20;
         this.money = 0;
         this.id = "player";
     }
@@ -40,6 +41,11 @@ class Player {
         if (distanceTemp < 60) {
             other.location.add(dis);
         }
+    }
+
+    // 玩家受伤
+    reduceLife = (value) => {
+        this.lifeLength -= value;
     }
 
     // 很遗憾，发现我的这个并不好用
@@ -70,23 +76,24 @@ class Player {
 
     move = () => {
         // if (!this.ifHit) {
-            if (keyIsDown(65)) {
-                if (this.location.x - this.radius > 0){
-                    this.location.x -= this.speed;
-                }
-            } else if (keyIsDown(68)) {
-                if (this.location.x + this.radius < width){
-                    this.location.x += this.speed;
-                }
-            } else if (keyIsDown(87)) {
-                if (this.location.y - this.radius > 0){
-                    this.location.y -= this.speed;
-                }
-            } else if (keyIsDown(83)) {
-                if (this.location.y + this.radius < height){
-                    this.location.y += this.speed;
-                }
+        if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) {
+            if (this.location.x - this.radius > 0){
+                this.location.x -= this.speed;
             }
+        } else if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) {
+            if (this.location.x + this.radius < width){
+                this.location.x += this.speed;
+            }
+        } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) {
+            if (this.location.y - this.radius > 0){
+                this.location.y -= this.speed;
+            }
+        } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) {
+            if (this.location.y + this.radius < height){
+                this.location.y += this.speed;
+            }
+        }
+        
         // }
     }
 
@@ -146,31 +153,42 @@ class Player {
     displayPlayer = () => {
         // line(this.location.x, this.location.y, mouseX, mouseY);
         push();
-            noStroke();
-            translate(this.location.x, this.location.y);
-            // translate(mapSize / 2, mapSize / 2);
-            var angleMouse = this.caluAngle();
-            rotate(angleMouse);
-            rectMode(CENTER);
-            fill(this.colorWeapon);
-            rect(23, 0, 45, 6, 3);
-            if (this.ifHit) {
-                fill(255, 0, 0);
+            if (!this.isDead()) {
+                noStroke();
+                translate(this.location.x, this.location.y);
+                // translate(mapSize / 2, mapSize / 2);
+                var angleMouse = this.caluAngle();
+                rotate(angleMouse);
+                rectMode(CENTER);
+                fill(this.colorWeapon);
+                rect(23, 0, 45, 6, 3);
+                if (this.ifHit) {
+                    fill(255, 0, 0);
+                } else {
+                    fill(this.colorBody);
+                }
+                ellipse(0, 0, this.diameter, this.diameter);
+                if (mouseIsPressed) {
+                    if (mouseButton === LEFT) {
+                        rect(21, 0, 6, 20, 3);
+                    }
+                }else {
+                    rect(25, 0, 6, 20, 3);
+                }
+                fill(this.colorEye);
+                rect(6, 0, 6, 14, 3);
+                rect(-6, 0, 6, 18, 3);
             } else {
                 fill(this.colorBody);
+                rectMode(CENTER);
+                rect(this.location.x, this.location.y, 20, 30);
             }
-            ellipse(0, 0, this.diameter, this.diameter);
-            if (mouseIsPressed) {
-                if (mouseButton === LEFT) {
-                    rect(21, 0, 6, 20, 3);
-                }
-            }else {
-                rect(25, 0, 6, 20, 3);
-            }
-            fill(this.colorEye);
-            rect(6, 0, 6, 14, 3);
-            rect(-6, 0, 6, 18, 3);
         pop();
+    }
+
+    // 判断玩家是否死亡
+    isDead = () => {
+        return (this.lifeLength <= 0);    
     }
 
     run = () => {

@@ -3,10 +3,10 @@ class Property {
     // 决定尺寸
     constructor(locX, locY) {
         this.location = createVector(locX, locY);
-        this.r = 20;
+        this.r = 5;
         this.angle = random(-180, 180);
         this.ifHit = false;
-        this.isDead = false;
+        this.ifDead = false;
         this.span = 255;
         this.id = 'property';
     }
@@ -19,7 +19,7 @@ class Property {
 
     //判断子弹接触否 
     setBulletHit = () => {
-        this.isDead = true;
+        this.ifDead = true;
     }
 
     // // 检测碰撞
@@ -30,11 +30,12 @@ class Property {
     // 检测碰撞
     setStageHit = (value) => {
         this.ifHit = value;
+        // this.ifDead = false;
         // console.log('hit');
     }
     // 改变状态
     // setStageLiving = () => {
-    //     this.isDead = true;
+    //     this.ifDead = true;
     // }
 
     // 判断状态

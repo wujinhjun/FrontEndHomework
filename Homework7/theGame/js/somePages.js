@@ -6,6 +6,12 @@ function homePage() {
     selectMap.update('地图选择', 48);
     let selectSkin = new Button(400, 662, 280, 100);
     selectSkin.update('皮肤选择', 48);
+    let tips = new Button(712, 712, 100, 77);
+    tips.update('提示', 24);
+    tips.cornerRadius(12);
+    // let story = new Button(712, 712, 100, 77);
+    // story.update('故事', 24);
+    // story.cornerRadius(12);
 
     if(startGame.buttonClick()) {
         gameStart = true;
@@ -16,6 +22,9 @@ function homePage() {
     }
     if(selectSkin.buttonClick()) {
         stage = 4;
+    }
+    if(tips.buttonClick()) {
+        stage = 5;
     }
 }
 
@@ -88,4 +97,35 @@ function skinSelect() {
     if (returnHome.buttonClick()) {
         stage = 1;
     }
+}
+
+function someTips() {
+    push();
+        textAlign(LEFT, TOP);
+        textSize(72);
+        text('操作提示', 256, 165);
+    pop();
+
+    let returnHome = new Button(128, 101, 160, 106);
+    returnHome.update('返回', 48);
+
+    tipsLine(123, 304, '移动操作：WASD对应上下左右');
+    tipsLine(123, 382, '攻击操作：使用鼠标左键进行攻击');
+    tipsLine(123, 460, '填弹操作：使用鼠标右键进行填弹');
+    tipsLine(123, 514, '每次填弹耗费100元');
+    tipsLine(123, 592, '恢复生命：使用r键进行恢复，每次');
+    tipsLine(123, 646, '恢复耗费1000元');
+
+    if (returnHome.buttonClick()) {
+        stage = 1;
+    }
+}
+
+// 一个组件用来显示提示
+function tipsLine(x, y, str) {
+    push();
+        textAlign(LEFT, TOP);
+        textSize(36);
+        text(str, x, y, 800 - 123, 700);
+    pop();
 }

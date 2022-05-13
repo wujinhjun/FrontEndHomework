@@ -115,7 +115,7 @@ function shootGun() {
     initVel.normalize();
     initVel.mult(10);
     bullets.push(new Shots(initLoc.x, initLoc.y, 0, 0, initVel.x, initVel.y, 255));
-    console.log(bullets);
+    // console.log(bullets);
 }
 
 function manageShot() {

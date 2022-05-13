@@ -38,6 +38,10 @@ class Button {
         pop();
     }
 
+    cornerRadius = (value) => {
+        this.radius = value;
+    }
+
     display = () => {
         push();
             rectMode(CENTER);

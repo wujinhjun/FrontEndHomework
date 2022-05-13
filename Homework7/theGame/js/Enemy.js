@@ -12,8 +12,12 @@ class Enemy {
 
         this.ifHit = false;
         this.ifAttack = false;
-
+        this.ifDead = false;
+        this.offset = random(-5, 5);
         this.stillSpan = 255;
+
+        // 是否掉落
+        this.prop = false;
     }
 
     intersects = (other) => {
@@ -50,8 +54,12 @@ class Enemy {
     // 判断是否消失
     isDis = () => {
         if (this.isDead) {
+            if (!this.prop) {
+                this.someProps();
+                this.prop = true;
+            }
             this.speed = 0;
-            this.stillSpan -= 5;
+            this.stillSpan -= 3;
             if (this.stillSpan <= 0) {
                 return true;
             } 
@@ -95,17 +103,36 @@ class Enemy {
                 rectMode(CENTER);
                 rect(0, -5, 10, 6);
                 rect(0, 5, 10, 6);
-            } else {
+            } else if (!this.stillSpan) {
                 fill(200, this.stillSpan);
-                ellipse(18, 5, 9, 6);
-                ellipse(18, -5, 9, 6);
+                for (let i = -1; i < 2; i++) {
+                    for (let j = -1; j < 2; j++) {
+                        ellipse(18 + i * this.offset, 5 + j * this.offset, 9, 6);
+                    }
+                }
+                
+                // ellipse(18, -5, 9, 6);
+                // console.log("yes");
             }
             
         pop();
     }
 
+    // 生成掉落物
+    someProps = () => {
+        for (let i = 0; i < 5; i++){
+            propertys.push(new Property(this.location.x + random(-5, 5), this.location.y + random(-5, 5)));
+        }
+    }
+
     update = () => {
         this.move();
+        this.display();
+        this.setStageHit(false);
+        this.setStageAttack(false);
+    }
+
+    suspend = () => {
         this.display();
         this.setStageHit(false);
         this.setStageAttack(false);
