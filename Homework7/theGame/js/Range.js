@@ -1,4 +1,4 @@
-class Reactangle {
+class Rectangle {
     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
@@ -13,12 +13,12 @@ class Reactangle {
     intersects = (range) => {
         return !(range.x - range.w > this.x + this.w || range.x + range.w < this.x - this.w || range.y - range.h > this.y + this.h || range.y + range.h < this.y - this.h);
     }
-    
+
     // 一个函数用于计算鼠标与中心点的向量
     caluVector = () => {
         let mouse = createVector(mouseX - this.x, mouseY - this.y);
         mouse.normalize();
-        
+
         return mouse;
     }
 
@@ -33,11 +33,11 @@ class Reactangle {
     display() {
         push();
         let angle = this.caluAngle();
-        
+
         translate(this.x, this.y);
         rotate(angle);
-            rectMode(CENTER);
-            rect(15, 0, this.w, this.h);
+        rectMode(CENTER);
+        rect(15, 0, this.w, this.h);
         pop();
     }
 }
@@ -77,7 +77,7 @@ class Circle {
 
         // intersection within the circle
         if (xDist <= w || yDist <= h) {
-            return true; 
+            return true;
         }
 
         // intersection on the edge of the circle

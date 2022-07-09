@@ -7,23 +7,23 @@
 
 new p5();
 
-var canvasSize = 800;
+const canvasSize = 800;
 let mapSize = 800;
-var player = new Player(mapSize/2, mapSize/2, 2);
+let player = new Player(mapSize / 2, mapSize / 2, 2);
 // let part
-var propertys = [];
-var enemys = [];
-var bullets = [];
-var particles = [];
-var back;
-var gameStart = false;
-var gameSuspend = false;
-var stage;
-var timesNum = 1;
+let enemys = [];
+let propertys = [];
+let bullets = [];
+let particles = [];
+let back;
+let gameStart = false;
+let gameSuspend = false;
+let stage;
+let timesNum = 1;
 
 function setup() {
     // 画布中心： 
-	createCanvas(canvasSize, canvasSize);
+    createCanvas(canvasSize, canvasSize);
     back = loadImage('./pic/background.png');
     smooth();
     stage = 1;
@@ -35,12 +35,12 @@ function setup() {
     // for (let i = 0; i < 10; i++) {
     //     enemys[i] = new Enemy(random(width), random(height), 1);
     // }
-    
+
 }
 
 function draw() {
     background(back);
-    
+
     // drawGui();
     // gameing();
 
@@ -67,28 +67,28 @@ function draw() {
         someTips();
     }
     // skin();
-    
+
 }
 // 鼠标单击监听
 function mouseClicked() {
     if (gameStart && !gameSuspend) {
-        if (mouseButton === LEFT){
+        if (mouseButton === LEFT) {
             if (player.bulletsNum >= 1) {
                 player.bulletsNum -= 1;
                 shootGun();
             }
         }
-        
-        if (mouseButton === RIGHT){
+
+        if (mouseButton === RIGHT) {
             if (player.money >= 100) {
                 player.bulletsNum = 20;
                 player.money -= 100;
             }
         }
-        
+
         // console.log(propertys);
     }
-    
+
 }
 
 function keyTyped() {
@@ -111,15 +111,15 @@ function keyTyped() {
 
 
 function gameing() {
-    
+
     // let part
     makeEnemy();
     console.log(enemys);
-    let boundary = new Reactangle(mapSize / 2, mapSize / 2, mapSize, mapSize);
+    let boundary = new Rectangle(mapSize / 2, mapSize / 2, mapSize, mapSize);
     let qTree = new QuadTree(boundary, 4);
 
     // 箱子
-    for(let p of propertys) {
+    for (let p of propertys) {
         let point = new Point(p.location.x, p.location.y, p);
         qTree.insert(point);
 
@@ -136,13 +136,13 @@ function gameing() {
             // e.update();
         }
     }
-    
+
 
     particles = enemys.concat(bullets);
 
     player.setStageHit(false);
 
-    let rangePlayer = new Reactangle(player.location.x, player.location.y, player.w - 3, player.h - 3);
+    let rangePlayer = new Rectangle(player.location.x, player.location.y, player.w - 3, player.h - 3);
     // rangePlayer.spin();
     // rangePlayer.display();
     let points = qTree.query(rangePlayer);
@@ -163,7 +163,7 @@ function gameing() {
                 player.reduceLife(1);
                 // console.log('enemy');
             }
-            
+
         }
     }
 
@@ -189,7 +189,7 @@ function gameing() {
                         other.setStageLiving();
                         // console.log('bullet2');
                     } else if (other.id === 'enemy' && !p.ifDead && !other.ifDead) {
-                        p.setStageHit(true);    
+                        p.setStageHit(true);
                         p.setDisBet(other);
                         other.setStageHit(true);
                         // let dis = createVector(this.location.x - other.location.x, this.location.y - other.location.y);
@@ -204,13 +204,13 @@ function gameing() {
     // // gun.run();
     // angle = player.caluAngle();
 
-    
+
     manageShot();
     manageEnemys();
     manageProp();
-    
+
     particles = enemys.concat(bullets);
-    
+
     player.run();
 
     if (player.isDead()) {
@@ -224,7 +224,7 @@ function gameing() {
 function makeEnemy() {
     if (enemys.length <= 0) {
         timesNum += 1;
-        while(enemys.length <= 6) {
+        while (enemys.length <= 6) {
             let locTemp = createVector(random(width), random(height));
             let disTemp = locTemp.dist(player.location);
             if (disTemp >= 200) {
@@ -268,85 +268,85 @@ function manageProp() {
 
 function stateBar() {
     push();
-        noStroke();
-        fill(111, 80);
-        rect(0, 0, 800, 145);
-        fill(49, 132, 228, 200);
-        rect(25, 10, 125, 125, 20);
+    noStroke();
+    fill(111, 80);
+    rect(0, 0, 800, 145);
+    fill(49, 132, 228, 200);
+    rect(25, 10, 125, 125, 20);
 
-        // 生命值
-        push();
-            noFill();
-            // fill(0, 255, 100);
-            stroke(200);
-            rect(185, 10, 300, 50, 15);
-        pop();
-        if (player.lifeLength >= 70) {
-            fill(0, 255, 133, 200);
-        } else if (player.lifeLength >= 30) {
-            fill(255, 162, 23, 200);
-        } else {
-            fill(255, 0, 0, 200);
-        }
-        
-        let lifeLength = map(player.lifeLength, 0, 100, 0, 300);
-        if (lifeLength >= 0) {
-            rect(185, 10, lifeLength, 50, 15);
-        }
+    // 生命值
+    push();
+    noFill();
+    // fill(0, 255, 100);
+    stroke(200);
+    rect(185, 10, 300, 50, 15);
+    pop();
+    if (player.lifeLength >= 70) {
+        fill(0, 255, 133, 200);
+    } else if (player.lifeLength >= 30) {
+        fill(255, 162, 23, 200);
+    } else {
+        fill(255, 0, 0, 200);
+    }
 
-        // 子弹条
-        push();
-            noFill();
-            // fill(0, 255, 100);
-            stroke(200);
-            rect(185, 85, 300, 50, 15);
-        pop();
-        fill(201, 227, 121, 200);
-        let bulletsNum = map(player.bulletsNum, 0, 20, 0, 300);
-        if (lifeLength >= 0) {
-            rect(185, 85, bulletsNum, 50, 15);
-        }
-        // rect(185, 85, 300, 50, 15);
-        textAlign(LEFT, CENTER);
-        textSize(40);
-        fill('#000000')
-        text('光点：' + player.money, 515, 35);
-        text('波数：' + timesNum, 515, 110);
+    let lifeLength = map(player.lifeLength, 0, 100, 0, 300);
+    if (lifeLength >= 0) {
+        rect(185, 10, lifeLength, 50, 15);
+    }
+
+    // 子弹条
+    push();
+    noFill();
+    // fill(0, 255, 100);
+    stroke(200);
+    rect(185, 85, 300, 50, 15);
+    pop();
+    fill(201, 227, 121, 200);
+    let bulletsNum = map(player.bulletsNum, 0, 20, 0, 300);
+    if (lifeLength >= 0) {
+        rect(185, 85, bulletsNum, 50, 15);
+    }
+    // rect(185, 85, 300, 50, 15);
+    textAlign(LEFT, CENTER);
+    textSize(40);
+    fill('#000000')
+    text('光点：' + player.money, 515, 35);
+    text('波数：' + timesNum, 515, 110);
     pop();
 }
 
 function quitBoard() {
     // push();
-        // translate(225, 225);
-        fill(196, 255 * 0.6);
-        rect(225, 225, 350, 350);
-        textAlign(LEFT, TOP);
-        textSize(48);
-        fill(0)
-        let str = '游戏暂停'
-        if (player.lifeLength <= 0) {
-            str = '游戏结束';
-        }
-        text(str, 79 + 225, 60 + 225);
-        let quit = new Button(29 + 60 + 225, 225 + 40 + 225, 120, 80);
-        let last = new Button(200 + 60 + 225, 225 + 40 + 225, 120, 80);
-        quit.update('退出', 40);
-        last.update('返回', 40);
+    // translate(225, 225);
+    fill(196, 255 * 0.6);
+    rect(225, 225, 350, 350);
+    textAlign(LEFT, TOP);
+    textSize(48);
+    fill(0)
+    let str = '游戏暂停'
+    if (player.lifeLength <= 0) {
+        str = '游戏结束';
+    }
+    text(str, 79 + 225, 60 + 225);
+    let quit = new Button(29 + 60 + 225, 225 + 40 + 225, 120, 80);
+    let last = new Button(200 + 60 + 225, 225 + 40 + 225, 120, 80);
+    quit.update('退出', 40);
+    last.update('返回', 40);
 
-        if (quit.buttonClick()) {
-            gameSuspend = false;
-            stage = 1;
-            reStart();
-        }
-        if (last.buttonClick()) {
-            gameSuspend = false;
-        }
+    if (quit.buttonClick()) {
+        gameSuspend = false;
+        stage = 1;
+        reStart();
+    }
+    if (last.buttonClick()) {
+        gameSuspend = false;
+    }
 
     // pop();
 }
 
 function reStart() {
-    player = new Player(mapSize/2, mapSize/2, 2);
+    player = new Player(mapSize / 2, mapSize / 2, 2);
     propertys = [];
     enemys = [];
     bullets = [];

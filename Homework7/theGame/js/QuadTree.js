@@ -12,13 +12,13 @@ class QuadTree {
         let w = this.boundary.w;
         let h = this.boundary.h;
 
-        let ne = new Reactangle(x + w / 2, y - h /2, w / 2, h / 2);
+        let ne = new Rectangle(x + w / 2, y - h / 2, w / 2, h / 2);
         this.northeast = new QuadTree(ne, this.capacity);
-        let nw = new Reactangle(x - w / 2, y - h /2, w / 2, h / 2);
+        let nw = new Rectangle(x - w / 2, y - h / 2, w / 2, h / 2);
         this.northwest = new QuadTree(nw, this.capacity);
-        let se = new Reactangle(x + w / 2, y + h /2, w / 2, h / 2);
+        let se = new Rectangle(x + w / 2, y + h / 2, w / 2, h / 2);
         this.southeast = new QuadTree(se, this.capacity);
-        let sw = new Reactangle(x - w / 2, y + h /2, w / 2, h / 2);
+        let sw = new Rectangle(x - w / 2, y + h / 2, w / 2, h / 2);
         this.southwest = new QuadTree(sw, this.capacity);
 
         this.divided = true;
@@ -29,7 +29,7 @@ class QuadTree {
             return false;
         }
 
-        if(this.points.length < this.capacity) {
+        if (this.points.length < this.capacity) {
             this.points.push(point);
             return true;
         } else {
@@ -46,7 +46,7 @@ class QuadTree {
                 return true;
             }
         }
-    } 
+    }
 
     query = (range, found) => {
         if (!found) {
@@ -55,7 +55,7 @@ class QuadTree {
         if (!this.boundary.intersects(range)) {
             return;
         } else {
-            for(let p of this.points) {
+            for (let p of this.points) {
                 if (range.contains(p)) {
                     found.push(p);
                 }
@@ -76,14 +76,14 @@ class QuadTree {
         noFill();
         rectMode(CENTER);
         rect(this.boundary.x, this.boundary.y, this.boundary.w * 2, this.boundary.h * 2);
-        if(this.divided) {
+        if (this.divided) {
             this.northeast.show();
             this.northwest.show();
             this.southeast.show();
             this.southwest.show();
         }
         strokeWeight(2);
-        for(let p of this.points) {
+        for (let p of this.points) {
             point(p.x, p.y);
         }
     }
